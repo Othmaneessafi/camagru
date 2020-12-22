@@ -4,7 +4,7 @@
 
         public function __construct()
         {
-            
+            $this->userModel = $this->model('User');
         }
 
         public function signup() {
@@ -30,16 +30,35 @@
                     $data['err_fullname'] = 'please enter fullname !!';
                 if (empty($data['email']))
                     $data['err_email'] = 'please enter email !!';
+                else
+                {
+                    if($this->userModel->findUsrByEmail($data['email']))
+                        $data['err_email'] = 'Email is already taken !!';
+                }
                 if (empty($data['username']))
                     $data['err_username'] = 'please enter username !!';
+                else
+                {
+                    if($this->userModel->findUsrByUsername($data['username']))
+                        $data['err_username'] = 'Username is already taken !!';
+                }
                 if (empty($data['password']))
                     $data['err_password'] = 'please enter password !!';
-                if ($data['password'] != $data['confirmPwd'])
+                if ($data['password'] != $data['confirm_pwd'])
                     $data['err_confirmPwd'] = 'Passwords do not match !!';
 
                 if (empty($data['err_fullname']) && empty($data['err_email']) && empty($data['err_username']) &&
                     empty($data['err_password']) && empty($data['err_confirmPwd']))
-                    die('success');
+                {
+                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                    if ($this->userModel->signup($data))
+                    {
+                        pop_up('signup_ok', 'You are now part of our community, you can login now');
+                        redirect('users/login');
+                    }
+                    else
+                        die('wrong');
+                }                   
                 else
                     $this->view('users/signup', $data);
             }
@@ -76,12 +95,24 @@
 
                 if (empty($data['username']))
                     $data['err_username'] = 'please enter username !!';
-                
+                else if(!$this->userModel->findUsrByUsername($data['username']))
+                    $data['err_username'] = 'Username doest not exist !!';
                 if (empty($data['password']))
                     $data['err_password'] = 'please enter password !!';
 
                 if (empty($data['err_username']) && empty($data['err_password']))
-                    die('success');
+                {
+                    $loggedUser = $this->userModel->login($data['username'], $data['password']);
+                    if ($loggedUser)
+                    {
+                        $this->createUserSession($loggedUser);
+                    }
+                    else
+                    {
+                        $data['err_password'] = 'Invalid password !!';
+                        $this->view('users/login', $data);
+                    }   
+                }
                 else
                     $this->view('users/login', $data);
             }
@@ -96,5 +127,26 @@
 
                 $this->view('users/login', $data);
             }
+        }
+
+        public function logout()
+        {
+            unset($_SESSION['userid']);
+            unset($_SESSION['user_email']);
+            unset($_SESSION['user_username']);
+            unset($_SESSION['user_fullname']);
+
+            session_destroy();
+            redirect('users/login');
+        }
+
+        public function createUserSession($user)
+        {
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_email'] = $user->email;
+            $_SESSION['user_username'] = $user->username;
+            $_SESSION['user_fullname'] = $user->fullname;
+
+            redirect('posts');
         }
     }

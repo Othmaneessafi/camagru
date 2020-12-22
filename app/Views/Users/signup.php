@@ -18,7 +18,7 @@
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="text" name="username" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_username'])) ? 'is-invalid' : ''; ?>" placeholder="Username" value="<?php echo $data['username']; ?>">
-                    <span><?php echo $data['err_username'] ?></span>
+                    <span class="invalid-feedback"><?php echo $data['err_username'] ?></span>
                 </div>
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="password" name="password" class="form-control form-control-lg 

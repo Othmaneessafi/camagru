@@ -8,5 +8,5 @@
     <link rel="stylesheet" href="<?php echo URL_ROOT;?>/css/style.css">
     <title><?php echo SITE_NAME; ?></title>
 </head>
-<body style="background-color: whitesmoke;">
+<body >
 <div class="container">
