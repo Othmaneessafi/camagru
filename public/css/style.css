@@ -23,3 +23,7 @@ body {
 .create_date {
 	color: lightgrey;
 }
+
+#cam {
+	height: 50vh;
+}

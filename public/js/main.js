@@ -1,7 +1,4 @@
-var video = document.getElementById('video'),
-camera_allowed = 0;
-
-    console.log("ol");
+var video = document.getElementById('video');
 
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 {
@@ -17,15 +14,15 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
     }
     );
 } else if(navigator.webkitGetUserMedia) {
-    navigator.webkitGetUserMedia({ video: true }, function(stream){
-        try {
-                video.src = window.URL.createObjectURL(stream);
-            } catch (error) {
-                 video.srcObject = stream;
-            }
-        video.play();
-        camera_allowed = 1;
-    }, function(err) {
-         console.log("The following error occurred: " + err.name);
-      });
- }
+   navigator.webkitGetUserMedia({ video: true }, function(stream){
+       try {
+               video.src = window.URL.createObjectURL(stream);
+           } catch (error) {
+                video.srcObject = stream;
+           }
+       video.play();
+       camera_allowed = 1;
+   }, function(err) {
+        console.log("The following error occurred: " + err.name);
+     });
+}
