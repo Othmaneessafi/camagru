@@ -8,8 +8,9 @@
       </div>
       <?php if (isset($_SESSION['user_id'])) : ?>
         <div class="col-4 d-flex justify-content-end align-items-center">
-        <a class="username"><?php echo $_SESSION['user_username'] ?></a>
-        <a class="btn btn-sm btn-outline-secondary mx-2" href="<?php echo URL_ROOT ?>/users/logout">Log Out</a>
+          <a href="<?php echo URL_ROOT ?>/posts/add" class="btn btn-secondary pull-right mx-3"><i class="fa fa-camera-retro"></i></a>
+          <a class="username"><?php echo $_SESSION['user_username'] ?></a>
+          <a class="btn btn-sm btn-outline-secondary mx-2" href="<?php echo URL_ROOT ?>/users/logout">Log Out</a>
       </div>
       <?php else : ?>
       <div class="col-4 d-flex justify-content-end align-items-center">

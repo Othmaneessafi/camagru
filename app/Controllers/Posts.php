@@ -18,4 +18,13 @@
             ];
             $this->view('posts/index', $data);
         }
+
+        public function add()
+        {
+            $data = [
+                'title' =>'',
+                'content' => ''
+            ];
+            $this->view('posts/add', $data);
+        }
     }

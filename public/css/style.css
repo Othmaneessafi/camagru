@@ -14,3 +14,12 @@ body {
 	font-size: 50px;
 	text-decoration:none;
 }
+
+.rounded-circle {
+	width: 5%;
+	height: 5%;
+}
+
+.create_date {
+	color: lightgrey;
+}
