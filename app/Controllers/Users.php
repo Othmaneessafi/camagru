@@ -146,6 +146,7 @@
             $_SESSION['user_email'] = $user->email;
             $_SESSION['user_username'] = $user->username;
             $_SESSION['user_fullname'] = $user->fullname;
+            $_SESSION['user_img'] = $user->profile_img;
 
             redirect('posts');
         }

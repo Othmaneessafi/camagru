@@ -25,5 +25,59 @@ body {
 }
 
 #cam {
-	height: 50vh;
+	height: 80vh;
 }
+
+.profile {
+	width: 40px;
+}
+
+
+.buttons {
+	width: 46%;
+	height: 40%;
+}
+.filters {
+	width: 54%;
+	height: 100px;
+}
+
+label {
+	display: block;
+	position: relative;
+	cursor: pointer;
+  }
+  
+  label:before {
+	background-color: white;
+	color: white;
+	content: " ";
+	display: block;
+	border-radius: 50%;
+	border: 1px solid grey;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 28px;
+	transition-duration: 0.4s;
+	transform: scale(0);
+  }
+  
+  label img {
+	transition-duration: 0.2s;
+	transform-origin: 50% 50%;
+  }
+  
+  :checked + label:before {
+	content: "✓";
+	background-color: green;
+	transform: scale(1);
+  }
+  
+  :checked + label img {
+	transform: scale(0.9);
+	z-index: -1;
+  }

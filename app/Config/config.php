@@ -1,10 +1,10 @@
 <?php
 
-    define('DB_HOST', '192.168.99.104:2021');
+    define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
-    define('DB_PWD', 'myrootpass');
+    define('DB_PWD', '');
     define('DB_NAME', 'camagru_db');
 
     define('CAMAGRU_ROOT', dirname(dirname(__FILE__)));
-    define('URL_ROOT', 'http://192.168.99.104:2020');
+    define('URL_ROOT', 'http://localhost/camagru');
     define('SITE_NAME', 'Camagru');
