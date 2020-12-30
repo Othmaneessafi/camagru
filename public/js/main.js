@@ -1,5 +1,6 @@
-var video = document.getElementById('video');
-
+var video = document.getElementById('video'),
+    canvas = document.getElementById('pic'),
+    context = canvas.getContext('2d');
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 {
     navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream)
@@ -26,3 +27,11 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
         console.log("The following error occurred: " + err.name);
      });
 }
+
+document.getElementById('take').addEventListener("click", function(){
+    context.drawImage(video, 0, 0, 500, 400);
+});
+
+document.getElementById('clear').addEventListener("click", function(){
+   context.clearRect(0, 0, 500, 400);
+});

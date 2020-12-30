@@ -5,10 +5,10 @@
     <div class="card card-body shadow p-3 mb-5 bg-white rounded mt-1 text-center" id="cam">
         <div class="d-flex flex-row h-75">
             <div class="camera  mx-5 w-50 bg-light shadow">
-                <video id="video" autoplay></video>
+                <video class="shadow w-100 h-100" id="video" autoplay></video>
             </div>
             <div class="image  w-50 mx-5 bg-light shadow">
-                <canvas id="image"></canvas>
+                <canvas id="pic" width="500" height="400" class="mx-1"></canvas>
             </div>
         </div>
         <div class="options my-4 d-flex flex-row">
@@ -31,10 +31,10 @@
                 </div>
             </div>
             <div class="buttons d-flex justify-content-end mt-5">
-                <button class="btn btn-light shadow mx-1" disabled><i class="fa fa-camera"></i> Take photo</button>
-                <button class="btn btn-success shadow mx-1"><i class="fa fa-camera"></i> Save photo</button>
-                <button class="btn btn-danger shadow mx-1"><i class="fa fa-camera"></i> Delete photo</button>
-                <button class="btn btn-secondary shadow mx-1"><i class="fa fa-camera"></i> Upload photo</button>
+                <button class="btn btn-light shadow mx-1"><i class="fa fa-camera" id="take"> Take photo</i></button>
+                <button class="btn btn-success shadow mx-1"><i class="fa fa-camera"> Save photo</i></button>
+                <button class="btn btn-danger shadow mx-1"><i class="fa fa-camera" id="clear"> Delete photo</i></button>
+                <button class="btn btn-secondary shadow mx-1"><i class="fa fa-camera"> Upload photo</i></button>
             </div>
         </div>
     </div>
