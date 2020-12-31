@@ -4,7 +4,7 @@
 ?>
     <div class="card card-body shadow p-3 mb-5 bg-white rounded mt-1 text-center" id="cam">
         <div class="d-flex flex-row h-75">
-            <div class="camera  mx-5 w-50 bg-light shadow">
+            <div class="camera  mx-5 w-50 bg-light shadow" id="vi">
                 <video class="shadow w-100 h-100" id="video" autoplay></video>
             </div>
             <div class="image  w-50 mx-5 bg-light shadow">
@@ -14,19 +14,19 @@
         <div class="options my-4 d-flex flex-row">
             <div class="filters d-flex justify-content-center">
                 <div class="border rounded mx-1 shadow ml-auto">
-                    <input class="d-none" type="radio" name="filter" id="mask" value="mask">
+                    <input class="d-none" type="radio" name="filter" id="mask" value="mask" onclick="choose_filter()">
 		  			<label for="mask"><img src="../public/img/mask.png" width="100" height="100"></label>
                 </div>
                 <div class="border rounded mx-1 shadow">
-                    <input class="d-none" type="radio" name="filter" id="covid" value="covid">
+                    <input class="d-none" type="radio" name="filter" id="covid" value="covid" onclick="choose_filter()">
                     <label for="covid"><img src="../public/img/covid.png" width="100" height="100"></label>
                 </div>
                 <div class="border rounded mx-1 shadow">
-                    <input class="d-none" type="radio" name="filter" id="ball" value="ball">
+                    <input class="d-none" type="radio" name="filter" id="ball" value="ball" onclick="choose_filter()">
 		  			<label for="ball"><img src="../public/img/ball.png" width="100" height="100"></label>
                 </div>
                 <div class="border rounded mx-1 shadow">
-                    <input class="d-none" type="radio" name="filter" id="hat" value="hat">
+                    <input class="d-none" type="radio" name="filter" id="hat" value="hat" onclick="choose_filter()">
 		  			<label for="hat"><img src="../public/img/hat.png" width="100" height="100"></label>
                 </div>
             </div>
