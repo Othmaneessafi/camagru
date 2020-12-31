@@ -150,4 +150,25 @@
 
             redirect('posts');
         }
+        
+        public function profile() {
+            $data = [
+                'username' => $_SESSION['username']
+            ];
+            
+            $this->view('users/profile', $data);
+        }
+
+        public function update_user() {
+            
+            $data = [
+                'id' => $_SESSION['user_id'],
+            ];
+            if($this->userModel->update_username($_POST['new_username'], $data['id']))
+            {
+                pop_up('updated', 'Profile updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                $_SESSION['user_username'] = $_POST['new_username'];
+                redirect('users/profile');
+            }
+        }
     }

@@ -61,4 +61,16 @@
             else
                 return false;
         }
+
+        public function update_username($new_username, $data){
+
+            $this->db->query('UPDATE users SET username = :username WHERE id = :id');
+            $this->db->bind(':username', $new_username);
+            $this->db->bind(':id', $data['id']);
+
+            if ($this->db->execute())
+                return true;
+            else
+                return false;
+        }
     }

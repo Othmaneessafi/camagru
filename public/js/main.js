@@ -30,6 +30,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 
 document.getElementById('take').addEventListener("click", function(){
     context.drawImage(video, 0, 0, 500, 400);
+    context.drawImage(elem, 0, 0, 100, 100);
 });
 
 document.getElementById('clear').addEventListener("click", function(){
