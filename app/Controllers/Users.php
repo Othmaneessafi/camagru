@@ -12,13 +12,15 @@
             {
 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+                $token = openssl_random_pseudo_bytes(16);
+                $token = bin2hex($token);
                 $data = [
                     'fullname' => trim($_POST['fullname']),
                     'email' => trim($_POST['email']),
                     'username' => trim($_POST['username']),
                     'password' => trim($_POST['password']),
                     'confirm_pwd' => trim($_POST['confirmPwd']),
+                    'token' => $token,
                     'err_fullname' => '',
                     'err_email' => '',
                     'err_username' => '',
@@ -53,6 +55,15 @@
                     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
                     if ($this->userModel->signup($data))
                     {
+                        $to_email = $data['email'];
+                        $subject = "Verify you email";
+                        $body = "Hi, Click this link to verify your email: ";
+                        $headers = "From: Camagru.oessafi@gmail.com \r\n";
+                        
+                        if (mail($to_email, $subject, $body, $headers))
+                            echo "Email successfully sent to $to_email...";
+                        else
+                            die("Email sending failed...");
                         pop_up('signup_ok', 'You are now part of our community, you can login now');
                         redirect('users/login');
                     }
@@ -70,6 +81,7 @@
                     'username' => '',
                     'password' => '',
                     'confirm_pwd' => '',
+                    'token' => '',
                     'err_name' => '',
                     'err_email' => '',
                     'err_username' => '',
@@ -105,7 +117,13 @@
                     $loggedUser = $this->userModel->login($data['username'], $data['password']);
                     if ($loggedUser)
                     {
-                        $this->createUserSession($loggedUser);
+                        if($loggedUser->verified)
+                            $this->createUserSession($loggedUser);
+                        else
+                        {
+                            pop_up('not_verified', 'Please verify you email !!', 'alert alert-danger');
+                            redirect('users/login');
+                        }
                     }
                     else
                     {
@@ -164,11 +182,23 @@
             $data = [
                 'id' => $_SESSION['user_id'],
             ];
-            if($this->userModel->update_username($_POST['new_username'], $data['id']))
+            if(!empty($_POST['new_username']))
             {
-                pop_up('updated', 'Profile updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
-                $_SESSION['user_username'] = $_POST['new_username'];
-                redirect('users/profile');
+                if($this->userModel->update_username($_POST['new_username'], $data['id']))
+                {
+                    pop_up('updated', 'Username updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                    $_SESSION['user_username'] = $_POST['new_username'];
+                    redirect('users/profile');
+                }
+            }
+            if(!empty($_POST['new_fullname']))
+            {
+                if($this->userModel->update_fullname($_POST['new_fullname'], $data['id']))
+                {
+                    pop_up('updated', 'Fullname updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                    $_SESSION['user_fullname'] = $_POST['new_fullname'];
+                    redirect('users/profile');
+                }
             }
         }
     }

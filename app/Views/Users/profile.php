@@ -26,17 +26,17 @@
                     <input type="submit" value="update" class="btn btn-outline-success" id="button-addon1">
                 </div>
             </div>
-            <div class="form-group my-2">
-                <label for="update_fullname"><strong>Update fullname</strong></label>
+            <div class="form-group my-2" method="post" action="<?php echo URL_ROOT; ?>/users/update_fullname">
+                <label for="update_fullname"><strong>Update full name</strong></label>
                 <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="text" class="form-control" placeholder="Update fullname" aria-label="Update fullname" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-success" type="button" id="button-addon2">Update</button>
+                    <input type="text" class="form-control" name="new_fullname" placeholder="Update fullname" aria-label="Update fullname" aria-describedby="button-addon2">
+                    <input type="submit" value="update" class="btn btn-outline-success" id="button-addon2">
                 </div>
             </div>
             <div class="form-group my-2">
                 <label for="update_email"><strong>Update Email</strong></label>
                 <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="text" class="form-control" placeholder="Update email" aria-label="Update email" aria-describedby="button-addon1">
+                    <input type="email" class="form-control" placeholder="Update email" aria-label="Update email" aria-describedby="button-addon1">
                     <button class="btn btn-outline-success" type="button" id="button-addon1">Update</button>
                 </div>
                 </div>
@@ -49,13 +49,13 @@
             </div>
         </form>
     </div>
-    <div class="update card card-body shadow p-3 bg-white rounded  text-center m-2" id="confirm_update">
-        <form>
+    <div class="update card card-body shadow p-3 bg-white rounded  text-center m-2" id="confirm_update" style="display: none;">
+        <form method="post" action="<?php echo URL_ROOT; ?>/users/update_user">
             <div class="form-group my-2">
                 <label for="update_username"><strong>Enter your password to confirm</strong></label>
                 <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="text" class="form-control" placeholder="your password" aria-label="your password" aria-describedby="button-addon1">
-                    <button class="btn btn-outline-success" type="button" id="button-addon1">Confirm</button>
+                    <input type="text" class="form-control" name="confirm" placeholder="confirm" aria-label="your password" aria-describedby="button-addon1">
+                    <input type="submit" value="confirm" class="btn btn-outline-success" id="button-addon1">
                 </div>
             </div>
         </form>
