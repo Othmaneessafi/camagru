@@ -57,7 +57,8 @@
                     {
                         $to_email = $data['email'];
                         $subject = "Verify you email";
-                        $body = "Hi, Click this link to verify your email: ";
+                        $token = $data['token'];
+                        $body = "Hi, Click this link to verify your email: <a href='http://localhost/camagru/users/verication?token=$token' />";
                         $headers = "From: Camagru.oessafi@gmail.com \r\n";
                         
                         if (mail($to_email, $subject, $body, $headers))
@@ -167,6 +168,22 @@
             $_SESSION['user_img'] = $user->profile_img;
 
             redirect('posts');
+        }
+
+        public function verification()
+        {
+            if (isset($_GET['token']))
+            {
+                $token = $_GET['token'];
+                
+                if ($this->userModel->verify($token))
+                {
+                    pop_up('signup_ok', 'Your account is verified succesfully');
+                    redirect('users/login');
+                }
+            }
+            else
+                die('error');
         }
         
         public function profile() {

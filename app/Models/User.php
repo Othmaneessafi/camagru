@@ -37,6 +37,27 @@
                 return false;
         }
 
+        public function verify($token)
+        {
+            $this->db->query('SELECT * FROM users WHERE token = :token');
+            $this->db->bind(':token', $token);
+            
+            $row = $this->db->singleFetch();
+
+
+        if ($this->db->rowCount() > 0)
+        {
+            $this->db->query('UPDATE users SET verified = 1 WHERE token = :token');
+            $this->db->bind(':token', $token);
+            if ($this->db->execute())
+                return true;
+            else
+               return false;
+        }
+        else
+            return false;
+        }
+
         public function findUsrByEmail($email){
 
             $this->db->query('SELECT * FROM users WHERE email = :email');
