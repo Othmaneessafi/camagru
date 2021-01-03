@@ -27,4 +27,17 @@
             ];
             $this->view('posts/add', $data);
         }
+
+        public function edit_post($id)
+        {
+            die($id);
+        }
+
+        public function del_post($post_id)
+        {
+            if($this->postModel->del($post_id))
+                redirect('users/profile');
+            else
+                die("error");
+        }
     }

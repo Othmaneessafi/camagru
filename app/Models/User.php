@@ -88,7 +88,7 @@
 
             $this->db->query('UPDATE users SET username = :username WHERE id = :id');
             $this->db->bind(':username', $new_username);
-            $this->db->bind(':id', $data['id']);
+            $this->db->bind(':id', $data);
 
             if ($this->db->execute())
                 return true;
@@ -100,7 +100,31 @@
 
             $this->db->query('UPDATE users SET fullname = :fullname WHERE id = :id');
             $this->db->bind(':fullname', $new_fullname);
-            $this->db->bind(':id', $data['id']);
+            $this->db->bind(':id', $data);
+
+            if ($this->db->execute())
+                return true;
+            else
+                return false;
+        }
+
+        public function update_pass($new_password, $data){
+
+            $this->db->query('UPDATE users SET password = :password WHERE id = :id');
+            $this->db->bind(':password', $new_password);
+            $this->db->bind(':id', $data);
+
+            if ($this->db->execute())
+                return true;
+            else
+                return false;
+        }
+
+        public function update_email($new_email, $data){
+
+            $this->db->query('UPDATE users SET email = :email WHERE id = :id');
+            $this->db->bind(':email', $new_email);
+            $this->db->bind(':id', $data);
 
             if ($this->db->execute())
                 return true;

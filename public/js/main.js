@@ -1,4 +1,3 @@
-
 if (window.location.href == "http://localhost/camagru/posts/add")
 {
     var video = document.getElementById('video'),
@@ -94,4 +93,14 @@ if (window.location.href == "http://localhost/camagru/posts/add")
         elem.style.top = newY  + 'px';
         elem.style.left = newX + 'px';
     }
+
+}
+
+function editShow() {
+    document.getElementById('edit_div').style.display = "block";
+    document.getElementById('edit_profile').style.display = "none";
+}
+function editHide() {
+    document.getElementById('edit_div').style.display = "none";
+    document.getElementById('edit_profile').style.display = "block";
 }

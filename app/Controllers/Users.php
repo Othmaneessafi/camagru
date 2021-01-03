@@ -5,6 +5,8 @@
         public function __construct()
         {
             $this->userModel = $this->model('User');
+            $this->postModel = $this->model('Post');
+
         }
 
         public function signup() {
@@ -46,6 +48,14 @@
                 }
                 if (empty($data['password']))
                     $data['err_password'] = 'please enter password !!';
+                else if (strlen($data['password']) < 6)
+                    $data['err_password'] = 'Password must be at least 6 characters';
+                else if (!preg_match('@[A-Z]@', $data['password']))
+                    $data['err_password'] = 'Password must contain an upper case';
+                else if (!preg_match('@[a-z]@', $data['password']))
+                    $data['err_password'] = 'Password must contain a  lower case';
+                else if (!preg_match('@[0-9]@', $data['password']))
+                    $data['err_password'] = 'Password must contain a number';
                 if ($data['password'] != $data['confirm_pwd'])
                     $data['err_confirmPwd'] = 'Passwords do not match !!';
 
@@ -58,15 +68,23 @@
                         $to_email = $data['email'];
                         $subject = "Verify you email";
                         $token = $data['token'];
-                        $body = "Hi, Click this link to verify your email: <a href='http://localhost/camagru/users/verication?token=$token' />";
-                        $headers = "From: Camagru.oessafi@gmail.com \r\n";
-                        
+                        $body = '<p><h1>Welcome to Camagru</h1>,
+                            <br /><br />
+                            <br/>
+                            To verify your account click here 
+                            <a href="http://localhost/Camagru/users/verification/?token='.$token.'">click here.</a>
+                            </p>
+                            <p>
+                                <br />--------------------------------------------------------
+                                <br />This is an automatic mail , please do not reply.
+                            </p>';
+                        $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";    
                         if (mail($to_email, $subject, $body, $headers))
-                            echo "Email successfully sent to $to_email...";
-                        else
-                            die("Email sending failed...");
-                        pop_up('signup_ok', 'You are now part of our community, you can login now');
-                        redirect('users/login');
+                                pop_up('signup_ok', 'You are now part of our community, you can login now');
+                            else
+                                pop_up('signup_ok', 'Can not send emai verificaton, please retry');
+                            redirect('users/login');   
                     }
                     else
                         die('wrong');
@@ -187,8 +205,10 @@
         }
         
         public function profile() {
+            $post = $this->postModel->getPosts();
             $data = [
-                'username' => $_SESSION['username']
+                'username' => $_SESSION['username'],
+                'posts' =>$post
             ];
             
             $this->view('users/profile', $data);
@@ -208,6 +228,9 @@
                     redirect('users/profile');
                 }
             }
+            else
+                redirect('users/profile');
+
             if(!empty($_POST['new_fullname']))
             {
                 if($this->userModel->update_fullname($_POST['new_fullname'], $data['id']))
@@ -217,5 +240,32 @@
                     redirect('users/profile');
                 }
             }
+            else
+                redirect('users/profile');
+            
+            if(!empty($_POST['new_email']))
+            {
+                if($this->userModel->update_email($_POST['new_email'], $data['id']))
+                {
+                    pop_up('updated', 'You need to verify the new email ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                    $_SESSION['user_fullname'] = $_POST['new_fullname'];
+                    redirect('users/profile');
+                }
+            }
+            else
+                redirect('users/profile');
+            
+            if(!empty($_POST['new_password']))
+            {
+                $_POST['new_password'] = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                if($this->userModel->update_pass($_POST['new_password'], $data['id']))
+                {
+                    pop_up('updated', 'Password updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                    redirect('users/profile');
+                }
+            }
+            else
+                redirect('users/profile');
+
         }
     }

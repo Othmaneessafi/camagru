@@ -3,63 +3,55 @@
     require_once CAMAGRU_ROOT . '/Views/inc/nav.php';
 ?>
 <?php pop_up('updated'); ?>
-<div class="information d-flex flex-row mx-auto">
-    <div class="card mx-3 h-80" style="width: 18rem;">
-        <img src="<?php echo $_SESSION['user_img'] ?>" class="card-img-top" alt="profile">
+
+
+<div class="information d-flex flex-row mx-auto h-auto w-100">
+    <div class=" mx-5 h-auto w-25">
+        <img src="<?php echo $_SESSION['user_img'] ?>" class="card-img-top rounded-circle w-100 h-auto" alt="profile">
         <div class="card-body">
-            <h5 class="card-title"><?php echo $_SESSION['user_username'] ?></h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>Username: </strong><?php echo $_SESSION['user_username'] ?></li>
-                <li class="list-group-item"><strong>Fullname: </strong><?php echo $_SESSION['user_fullname'] ?></li>
-                <li class="list-group-item"><strong>Email: </strong><?php echo $_SESSION['user_email'] ?></li>
-                <li class="list-group-item"><strong>Password: </strong>*******</li>
-            </ul>
+            <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
+            <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2"><?php echo $_SESSION['user_username'] ?></h5></span><br>
+            <span class="p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email"><i class="fa fa-envelope"></i><?php echo '  '.$_SESSION['user_email'] ?></small></strong></span>
         </div>
-    </div>
-<div class="w-75">
-    <div class="update card card-body shadow p-3 bg-white rounded  text-center h-70 m-2" id="updat">
+        <button class="btn btn-outline-secondary w-100 mx-auto" id="edit_profile" onclick="editShow()">Edit profile</button>
         <form method="post" action="<?php echo URL_ROOT; ?>/users/update_user">
-            <div class="us form-group my-2">
-                <label for="update_username"><strong>Update username</strong></label>
-                <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="text" class="form-control" name="new_username" placeholder="Update username" aria-label="Update username" aria-describedby="button-addon1">
-                    <input type="submit" value="update" class="btn btn-outline-success" id="button-addon1">
+            <div class="card-body row" id="edit_div">
+                <div class="d-flex my-2">
+                    <i class="fa fa-edit my-auto"></i>
+                    <input type="text" class="form-control" name="new_fullname" name="new_fullname" placeholder="Fullname">
                 </div>
-            </div>
-            <div class="form-group my-2" method="post" action="<?php echo URL_ROOT; ?>/users/update_fullname">
-                <label for="update_fullname"><strong>Update full name</strong></label>
-                <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="text" class="form-control" name="new_fullname" placeholder="Update fullname" aria-label="Update fullname" aria-describedby="button-addon2">
-                    <input type="submit" value="update" class="btn btn-outline-success" id="button-addon2">
+                <div class="d-flex my-2">
+                    <i class="fa fa-user my-auto"></i>
+                    <input type="text" class="form-control" name="new_username" placeholder="Username">
                 </div>
-            </div>
-            <div class="form-group my-2">
-                <label for="update_email"><strong>Update Email</strong></label>
-                <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="email" class="form-control" placeholder="Update email" aria-label="Update email" aria-describedby="button-addon1">
-                    <button class="btn btn-outline-success" type="button" id="button-addon1">Update</button>
+                <div class="d-flex my-2">
+                    <i class="fa fa-envelope my-auto"></i>
+                    <input type="text" class="form-control" name="new_email" placeholder="Email">
                 </div>
+                <div class="d-flex my-2">
+                    <i class="fa fa-key my-auto"></i>
+                    <input type="password" class="form-control" name="new_password" placeholder="Password">
                 </div>
-            <div class="form-group my-2">
-                <label for="update_password"><strong>Update password</strong></label>
-                <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="text" class="form-control" placeholder="Update password" aria-label="Update fullname" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-success" type="button" id="button-addon2">Update</button>
+                <div class="d-flex my-3 mx-auto">
+                    <input type="submit" class="btn btn-outline-success mx-2" value="update">
+                    <input type="button" class="btn btn-outline-danger" value="cancel" onclick="editHide()"></button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="update card card-body shadow p-3 bg-white rounded  text-center m-2" id="confirm_update" style="display: none;">
-        <form method="post" action="<?php echo URL_ROOT; ?>/users/update_user">
-            <div class="form-group my-2">
-                <label for="update_username"><strong>Enter your password to confirm</strong></label>
-                <div class="input-group mb-3 w-50 mx-auto">
-                    <input type="text" class="form-control" name="confirm" placeholder="confirm" aria-label="your password" aria-describedby="button-addon1">
-                    <input type="submit" value="confirm" class="btn btn-outline-success" id="button-addon1">
+    <div class="w-100 h-auto d-flex flex-inline border mr-5">
+        <?php foreach($data['posts'] as $post) : ?>
+            <div class="rounded mb-3 w-25 h-auto">
+                <div class="bg-light p-2 mb-3">
+                    <img class="card-img-top rounded" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
+                    <div class="my-1 w-100">
+                        <a href="<?php echo URL_ROOT; ?>/posts/edit_post/<?php echo $post->postId ?>"><input type="submit" value="Edit" name="edit" class="btn btn-outline-info w-25 h-auto"></a>
+                        <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="btn btn-outline-danger w-50 h-auto"></a>
+                    </div>
                 </div>
             </div>
-        </form>
+        <?php endforeach;  ?>
     </div>
 </div>
-</div>
+
 <?php require_once CAMAGRU_ROOT . '/Views/inc/footer.php'; ?>
