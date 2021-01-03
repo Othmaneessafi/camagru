@@ -81,9 +81,9 @@
                         $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
                         $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";    
                         if (mail($to_email, $subject, $body, $headers))
-                                pop_up('signup_ok', 'You are now part of our community, you can login now');
+                                pop_up('signup_ok', 'You are now part of our community, Verify your email to login');
                             else
-                                pop_up('signup_ok', 'Can not send emai verificaton, please retry');
+                                pop_up('signup_ok', 'Can not send email verificaton, please retry');
                             redirect('users/login');   
                     }
                     else

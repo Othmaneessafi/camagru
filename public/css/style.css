@@ -34,8 +34,8 @@ body {
 
 
 .buttons {
-	width: 46%;
-	height: 40%;
+	width: 60%;
+	height: auto;
 }
 .filters {
 	width: 54%;
@@ -89,6 +89,10 @@ label {
 	left: 10%;
 }
 
+.filter {
+	width: 40%;
+}
+
 .information {
 	width: 70%;
 }
@@ -104,5 +108,16 @@ i {
 
 #edit_div {
 	display: none;
+}
+
+.column {
+	float: left;
+	width: 23%;
+	height: auto;
+}
+
+.filter_img {
+	width: 70%;
+	height: 10%;
 }
 
