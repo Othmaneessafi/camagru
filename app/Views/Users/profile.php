@@ -7,7 +7,7 @@
 
 <div class="information d-flex flex-row mx-auto h-auto w-100">
     <div class=" mx-5 h-auto w-25">
-        <img src="<?php echo $_SESSION['user_img'] ?>" class="card-img-top rounded-circle w-100 h-auto" alt="profile">
+        <img src="<?php echo $_SESSION['user_img'] ?>" class="card-img-top rounded-circle w-100 h-50" alt="profile">
         <div class="card-body">
             <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
             <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2"><?php echo $_SESSION['user_username'] ?></h5></span><br>
@@ -45,8 +45,8 @@
                 <div class="bg-light p-2 mb-3">
                     <img class="card-img-top rounded" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
                     <div class="my-1 w-100">
-                        <a href="<?php echo URL_ROOT; ?>/posts/edit_post/<?php echo $post->postId ?>"><input type="submit" value="Edit" name="edit" class="btn btn-outline-info w-25 h-auto"></a>
-                        <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="btn btn-outline-danger w-50 h-auto"></a>
+                        <a href="<?php echo URL_ROOT; ?>/posts/edit_post/<?php echo $post->postId ?>"><input type="submit" value="Edit" name="edit" class="edit-btn btn btn-outline-info  h-auto"></a>
+                        <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="del-btn btn btn-outline-danger h-auto"></a>
                     </div>
                 </div>
             </div>
