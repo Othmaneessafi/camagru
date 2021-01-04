@@ -21,6 +21,7 @@
                     <input type="submit" value="Log in" class="btn btn-primary btn-block">
                 </div>
                 <div class="row">
+                    <p>Forgot you password ? <a href="<?php echo URL_ROOT ?>/users/signup" style="text-decoration: none;">reset password</a></p>
                     <p>You don't have an account? <a href="<?php echo URL_ROOT ?>/users/signup" style="text-decoration: none;">sign up</a></p>
                 </div>
             </form>

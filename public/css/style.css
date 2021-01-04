@@ -128,4 +128,26 @@ i {
 .del-btn {
 	width: 40%;
 }
+.gallery {
+	width: 25%;
+	min-width: 200px;
+	min-height: auto;
+}
+.infos {
+	width: 25%;
+}
+.profile-pic {
+	min-height: auto;
 
+}
+.update-btn {
+	width: 70%;
+}
+.cancel-btn {
+	width: 30%;
+}
+
+.post-user {
+  	width: 7%;
+  	height: auto
+}
