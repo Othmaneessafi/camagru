@@ -11,7 +11,7 @@
         <div class="card-body">
             <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
             <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2"><?php echo $_SESSION['user_username'] ?></h5></span><br>
-            <span class="p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email"><i class="fa fa-envelope"></i><?php echo '  '.$_SESSION['user_email'] ?></small></strong></span>
+            <span class="row p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email"><i class="fa fa-envelope"></i><?php echo '  '.$_SESSION['user_email'] ?></small></strong></span>
         </div>
         <input class="btn btn-outline-secondary w-100 mx-auto shadow" id="edit_profile" onclick="editShow()" value="Edit profile">
         <form method="post" action="<?php echo URL_ROOT; ?>/users/update_user">
@@ -43,17 +43,18 @@
         </form>
     </div>
     <div class="w-100 row border mr-5">
-        <?php foreach($data['posts'] as $post) : ?>
-            <div class="gallery rounded mb-3 h-auto">
-                <div class="p-2 mb-3 h-100">
-                    <img class="card-img-top rounded w-100 h-75 mb-3 shadow" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
-                    <div class="row my-1 w-100 h-auto">
-                        <a href="<?php echo URL_ROOT; ?>/posts/edit_post/<?php echo $post->postId ?>"><input type="submit" value="Edit" name="edit" class="edit-btn btn btn-outline-info shadow mb-1 h-auto"></a>
-                        <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="del-btn btn btn-outline-danger shadow h-auto"></a>
+        <?php foreach($data['posts'] as $post) :
+            if($post->userId == $_SESSION['user_id']): ?>
+                <div class="gallery rounded mb-3 h-auto">
+                    <div class="p-2 mb-3 w-auto h-100">
+                        <img class="card-img-top rounded w-100 h-auto mb-3 shadow" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
+                        <div class="w-100 h-auto">
+                            <a href="<?php echo URL_ROOT; ?>/posts/edit_post/<?php echo $post->postId ?>"><input type="submit" value="Edit" name="edit" class="edit-btn col-4 btn btn-outline-info shadow h-auto"></a>
+                            <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="del-btn col-4 btn btn-outline-danger shadow h-auto"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach;  ?>
+        <?php endif; endforeach; ?>
     </div>
 </div>
 

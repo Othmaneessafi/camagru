@@ -122,14 +122,14 @@ i {
 }
 
 .edit-btn {
-	width: 50%;
+	width: 40%;
 }
 
 .del-btn {
 	width: 40%;
 }
 .gallery {
-	width: 25%;
+	width: 33.33%;
 	min-width: 200px;
 	min-height: auto;
 }
@@ -141,13 +141,21 @@ i {
 
 }
 .update-btn {
-	width: 70%;
+	width: 60%;
 }
 .cancel-btn {
-	width: 30%;
+	width: 40%;
 }
 
 .post-user {
   	width: 7%;
   	height: auto
+}
+
+.out-btn {
+	width: 30%;
+}
+
+.cam-btn {
+	width: auto;
 }

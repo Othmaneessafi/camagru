@@ -12,7 +12,6 @@
         public function signup() {
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
-
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $token = openssl_random_pseudo_bytes(16);
                 $token = bin2hex($token);
@@ -72,7 +71,7 @@
                             <br /><br />
                             <br/>
                             To verify your account click here 
-                            <a href="http://localhost/Camagru/users/verification/?token='.$token.'">click here.</a>
+                            <a href="'.URL_ROOT.'/users/verification/?token='.$token.'">click here.</a>
                             </p>
                             <p>
                                 <br />--------------------------------------------------------
