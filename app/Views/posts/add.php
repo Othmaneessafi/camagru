@@ -2,15 +2,15 @@
     require_once CAMAGRU_ROOT . '/Views/inc/header.php';
     require_once CAMAGRU_ROOT . '/Views/inc/nav.php';
 ?>
-    <div class="card card-body shadow p-3 mb-5 bg-white rounded mt-1 text-center" id="cam">
-        <div class="d-flex flex-row h-100 ">
+    <div class="card card-body shadow p-3 mb-5 bg-white  rounded mt-1 text-center" id="cam">
+        <div class="d-flex flex-row h-auto ">
             <div class="camera w-50 h-auto bg-light mx-1 shadow" id="vi">
                 <video class="w-100 h-100" id="video" autoplay></video>
             </div>
             <div class="image  w-50 h-auto bg-light shadow">
                 <canvas id="pic" width="500" height="400" class="align-self-center h-auto w-auto"></canvas>
             </div>
-            <div class="thum  w-25 h-100 bg-light mx-1 shadow">    
+            <div class="thum  w-25 h-auto bg-light mx-1 shadow">    
             </div>
         </div>
         <div class="options my-4 row w-100 h-auto">
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="buttons row  d-flex justify-content-center my-auto">
-                <input type="button" class="column btn btn-outline-info shadow w-auto h-auto mx-1" value="Take photo" id="take">
+                <input type="button" class="column btn btn-outline-info shadow w-auto h-auto mx-1" value="Take photo" id="take" disabled>
                 <input type="button" class="column btn btn-outline-success shadow w-auto h-auto mx-1" value="Save photo">
                 <input type="button" class="column btn btn-outline-danger shadow w-auto h-auto mx-1" value="Clear photo" id="clear">
                 <input type="button" class="column btn btn-outline-secondary shadow w-auto h-auto mx-1" value="Upload photo">

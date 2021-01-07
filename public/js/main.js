@@ -60,7 +60,8 @@ if (window.location.href == "http://localhost/camagru/posts/add")
         if (hat.checked == true)
             elem.src = "../public/img/hat.png";
 
-        document.getElementById('vi').appendChild(elem); 
+        document.getElementById('vi').appendChild(elem);
+        document.getElementById('take').disabled = false;
     }
 
     elem.addEventListener("mousedown", initialClick, false);

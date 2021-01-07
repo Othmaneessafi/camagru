@@ -84,6 +84,19 @@
                 return false;
         }
 
+        public function getUserToken($email){
+
+            $this->db->query('SELECT * FROM users WHERE email = :email');
+            $this->db->bind(':email', $email);
+
+            $row = $this->db->singleFetch();
+
+            if ($this->db->rowCount() > 0)
+                return $row;
+            else
+                return false;
+        }
+
         public function update_username($new_username, $data){
 
             $this->db->query('UPDATE users SET username = :username WHERE id = :id');
