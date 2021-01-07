@@ -1,4 +1,9 @@
-<?php require_once CAMAGRU_ROOT . '/Views/inc/header.php'; ?>
+<?php require_once CAMAGRU_ROOT . '/Views/inc/header.php';
+    if (isLogged()){
+        redirect('posts');
+        exit();
+    }
+?>
 
     <div class="col-md-6 mx-auto">
         <div class="card card-body shadow p-3 mb-5 bg-white rounded mt-5 text-center">
@@ -39,6 +44,4 @@
             </form>
         </div>
     </div>
-
-
 <?php require_once CAMAGRU_ROOT . '/Views/inc/footer.php'; ?>

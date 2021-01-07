@@ -1,6 +1,7 @@
 <?php
     require_once CAMAGRU_ROOT . '/Views/inc/header.php';
     require_once CAMAGRU_ROOT . '/Views/inc/nav.php';
+    if (!isset($_SESSION['userid'])):
 ?>
 <?php pop_up('updated'); ?>
 
@@ -42,7 +43,7 @@
             </div>
         </form>
     </div>
-    <div class="w-100 row border mr-5">
+    <div class="gallery-container row border mr-5">
         <?php foreach($data['posts'] as $post) :
             if($post->userId == $_SESSION['user_id']): ?>
                 <div class="gallery rounded mb-3 h-auto">
@@ -57,5 +58,6 @@
         <?php endif; endforeach; ?>
     </div>
 </div>
-
+<?php else : redirect('users/login');
+        endif; ?>
 <?php require_once CAMAGRU_ROOT . '/Views/inc/footer.php'; ?>

@@ -9,7 +9,7 @@
                 <img class="post-user rounded-circle shadow my-auto" src="<?php echo $post->profile_img ?>" alt="profile">
                 <h4 class="card-title mx-2 my-auto h-auto"><?php echo $post->username; ?></h4>
             </div>
-            <div class=" p-2 mb-3">
+            <div class=" p-2">
                 <img class="card-img-top" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
             </div>
             <div class="create_date mx-2">
