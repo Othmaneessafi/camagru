@@ -8,9 +8,8 @@
       </div>
       <?php if (isset($_SESSION['user_id'])) : ?>
         <div class="menu col-4 d-flex justify-content-end align-items-center w-25 h-auto">
-          <div onclick="menuToggle()">
-            <img class="profile-btn profile  rounded-circle border border-dark h-auto mx-3" src="<?php echo $_SESSION['user_img'] ?>" alt="profile">
-          </div>
+            <a href="<?php echo URL_ROOT ?>/users/profile"><img class="profile-btn profile border border-dark mx-3" src="<?php echo $_SESSION['user_img'] ?>" alt="profile"></a>
+            <div class="list-toggle"><img class="list-btn profile border border-dark mx-3" src="<?php echo $_SESSION['user_img'] ?>" alt="profile"></a></div>
             <a href="<?php echo URL_ROOT ?>/posts/add"><img class="cam-btn" src="../public/img/camera.png"></a>
             <a class="btn btn-sm mx-1" href="<?php echo URL_ROOT ?>/users/logout" ><img class="out-btn" src="https://www.flaticon.com/svg/static/icons/svg/1250/1250678.svg" ></a>
         </div>
@@ -23,3 +22,10 @@
     </div>
   </header>
   <hr style="position:relative; top: -30px;">
+    <div class="liste rounded shadow">
+      <ul>
+        <li><a class="btn btn-sm" href="<?php echo URL_ROOT ?>/users/profile"><img class="list-profile-btn profile border border-dark" src="<?php echo $_SESSION['user_img'] ?>" alt="profile"> Profile</a></li>
+        <li><a class="btn btn-sm" href="<?php echo URL_ROOT ?>/posts/add"><img class="list-cam-btn" src="../public/img/camera.png"> Camera</a></li>
+        <li><a class="btn btn-sm" href="<?php echo URL_ROOT ?>/users/logout" ><img class="out-btn" src="https://www.flaticon.com/svg/static/icons/svg/1250/1250678.svg"> Log out</a></li>
+      </ul>
+  </div>

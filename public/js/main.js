@@ -1,34 +1,19 @@
-if (window.location.href == "http://localhost/camagru/posts/add")
+if (window.location.href == "https://192.168.99.112:8081/posts/add")
 {
     var video = document.getElementById('video'),
         canvas = document.getElementById('pic'),
         context = canvas.getContext('2d');
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
-    {
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream)
-        {
-        try {
-                video.src = window.URL.createObjectURL(stream);
-        } catch (error) {
-                video.srcObject = stream;
-            }
-            video.play();
-            camera_allowed = 1;
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.oGetUserMedia || navigator.msGetUserMedia;
+        if(navigator.getUserMedia){
+            navigator.getUserMedia({video:true}, streamWebCam, throwError);
         }
-        );
-    } else if(navigator.webkitGetUserMedia) {
-    navigator.webkitGetUserMedia({ video: true }, function(stream){
-        try {
-                video.src = window.URL.createObjectURL(stream);
-            } catch (error) {
-                    video.srcObject = stream;
-            }
-        video.play();
-        camera_allowed = 1;
-    }, function(err) {
-            console.log("The following error occurred: " + err.name);
-        });
-    }
+        function streamWebCam (stream) {
+            video.srcObject = stream;
+            video.play();
+        }
+        function throwError (e) {
+            alert(e.name);
+        }
 
     document.getElementById('take').addEventListener("click", function(){
         context.drawImage(video, 0, 0, 500, 400);
@@ -62,37 +47,6 @@ if (window.location.href == "http://localhost/camagru/posts/add")
 
         document.getElementById('vi').appendChild(elem);
         document.getElementById('take').disabled = false;
-    }
-
-    elem.addEventListener("mousedown", initialClick, false);
-    var moving = false;
-    function initialClick(e) {
-
-        if(moving){
-        document.removeEventListener("mousemove", move);
-        moving = !moving;
-        return;
-        }
-        
-        moving = !moving;
-        image = this;
-    
-        document.addEventListener("mousemove", move, false);
-    
-    }
-    function move(e){
-
-        var newX = e.clientX - 300;
-        var newY = e.clientY - 200;
-
-        if (newY < 10) newY = 10;
-        if (newX < 58) newX = 58;
-        if (newY > 450) newY = 450;
-        if (newX > 500) newX = 500;
-        console.log(newY);
-        elem.style.position = 'absolute';
-        elem.style.top = newY  + 'px';
-        elem.style.left = newX + 'px';
     }
 
 }
