@@ -101,7 +101,23 @@ function editShow() {
     document.getElementById('edit_div').style.display = "block";
     document.getElementById('edit_profile').style.display = "none";
 }
+
 function editHide() {
     document.getElementById('edit_div').style.display = "none";
     document.getElementById('edit_profile').style.display = "block";
+}
+
+function menuToggle(){
+
+        const toggleMenu = document.querySelector('.mono');
+        toggleMenu.classList.toggle('active');
+}
+
+function setImage()
+{
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        document.getElementById("tempImg").setAttribute("src", e.target.result);
+    };
+    reader.readAsDataURL(input.file[0]);
 }

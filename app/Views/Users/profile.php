@@ -10,7 +10,7 @@
     <div class="infos mx-5 h-auto">
         <img src="<?php echo $_SESSION['user_img'] ?>" class="profile-pic card-img-top rounded shadow w-100 h-auto" alt="profile">
         <div class="card-body">
-            <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
+            <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname" style="font-size: 4vh;"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
             <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2"><?php echo $_SESSION['user_username'] ?></h5></span><br>
             <span class="row p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email"><i class="fa fa-envelope"></i><?php echo '  '.$_SESSION['user_email'] ?></small></strong></span>
         </div>

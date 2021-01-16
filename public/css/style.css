@@ -24,14 +24,18 @@ body {
 	color: lightgrey;
 }
 
-#cam {
-
-}
-
 .profile {
 	width: 40px;
 }
 
+.camera {
+	margin-right: 2rem;
+	width: 50%;
+}
+
+.image {
+	width: 50%;
+}
 
 .buttons {
 	width: 60%;
@@ -110,6 +114,10 @@ i {
 	display: none;
 }
 
+#thum {
+	height: 15rem;
+}
+
 .column {
 	float: left;
 	width: 23%;
@@ -148,19 +156,57 @@ i {
 }
 
 .post-user {
-  	width: 7%;
+  	width: 5%;
   	height: auto
 }
 
 .out-btn {
-	width: 30%;
+	width: 1.5rem;
+	height: 1.5rem;
 }
 
 .cam-btn {
-	width: auto;
+	width: 2rem;
+	height: 2rem;
+}
+.profile-btn {
+	width: 2rem;
+	height: 2rem;
 }
 
 .gallery-container {
 	width: 70%;
 }
 
+.post-container {
+	width: 70%;
+}
+.post-img {
+	width: 100%;
+	height: 50%;
+}
+
+.liste {
+	display: none;
+}
+
+@media screen and (max-width:1200px)
+{
+	.cam-btn {
+		display: none;
+	}
+	.out-btn {
+		display: none;
+	}
+
+	.liste {
+		position: absolute;
+		list-style: none;
+		top: 10vh;
+		background-color:gray;
+		text-align: center;
+	}
+	.profile-btn:hover .liste {
+		display: block;
+	}
+}
