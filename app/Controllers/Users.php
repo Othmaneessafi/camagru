@@ -167,7 +167,7 @@
 
         public function logout()
         {
-            unset($_SESSION['userid']);
+            unset($_SESSION['user_id']);
             unset($_SESSION['user_email']);
             unset($_SESSION['user_username']);
             unset($_SESSION['user_fullname']);
@@ -360,4 +360,26 @@
                 redirect('users/profile');
 
         }
+
+        public function get_commenter($user_id)
+        {
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            $this->db->bind(':id',$user_id);
+            $result = $this->db->single();
+            if($result)
+            return ($result);
+            else
+            return false;
+            } 
+
+            public function get_dest($user_id)
+            {
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            $this->db->bind(':id',$user_id);
+            $result = $this->db->single();
+            if($result)
+            return ($result);
+            else
+            return false;
+  	    } 
     }

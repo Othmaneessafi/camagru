@@ -121,7 +121,7 @@ i {
 
 .post-container {
 	width: 60%;
-	height: 60rem;
+	height: 65rem;
 }
 
 .post-img {
@@ -142,6 +142,10 @@ i {
 	object-fit: cover;
 }
 
+.card-footer {
+	background-color: white;
+	height: 5rem;
+}
 /* **************** */
 /* 04 Post Add page */
 /* **************** */

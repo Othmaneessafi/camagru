@@ -12,8 +12,68 @@
             <div class="">
                 <img class="post-img card-img-top" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
             </div>
-            <div class="create_date mt-2">
-                <p><?php echo $post->create_at; ?></p>
+            <div class="card-footer">
+                      <?php
+                        $liked = false;
+                        foreach ($data['likes'] as $like) {
+                            if ($like->user_id == $_SESSION['user_id'] && $like->post_id == $post->postId) {
+                                $liked = true; ?>
+                                <i class = "fa fa-heart"
+                                   data-post_id="<?php echo $post->postId; ?>" 
+                                   data-user_id="<?php echo $_SESSION['user_id']; ?>" 
+                                   data-like_nbr="<?php echo $post->like_nbr;?>" 
+                                  onclick="like(event)"
+                                  id="l_<?php echo $post->postId;?>"
+                                  name="li_<?php echo $post->postId;?>">    
+                                </i>
+                                <?php
+                            }
+                        }
+                        if ($liked === false) {?>
+                            <i class = "fa fa-heart-o"  
+                              data-post_id="<?php echo $post->postId;?>" 
+                              data-like_nbr="<?php echo $post->like_nbr;?>" 
+                              data-user_id="<?php echo $_SESSION['user_id'];?>" 
+                              onclick="like(event)" id="l_<?php echo $post->postId;?>"
+                              name="li_<?php echo $post->postId;?>"> 
+                            </i>
+                        <?php }
+                        ?>
+                      <a id="li_nb_<?php echo $post->postId;?>" class="card-link text-muted"><?php echo $post->like_nbr;?></a>
+
+                      <div class="cardbox-comments mt-2">
+                          
+                          <textarea name="comment_<?php echo $post->postId;?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize:none"></textarea>
+                          <button onclick="comment(event)"
+                            data-c-user_id="<?php echo $_SESSION['user_id'];?>"
+                            data-c-post_id="<?php echo $post->postId;?>" class="btn btn-secondary pull-right">Add</button>
+                        
+                          <br>
+                      </div>
+                      <?php
+                        if(is_array($data['comments']))
+                        {
+                          foreach($data['comments'] as $comment)
+                          {
+                            if($comment->post_id == $post->postId)
+                            {
+                            ?>
+                                <hr class="mb-1 mt-4">
+                                <ul class="media-list">
+                                    <li class="media">                    
+                                        <div class="media-body">
+                                            <strong class="text-dark">@<?php echo $comment->username;?></strong>
+                                            <p><?php echo htmlspecialchars($comment->content);?></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                              <?php
+                            }
+                          }
+                        }?>
+                      <div class="create_date mt-2">
+                        <p><?php echo $post->create_at; ?></p>
+                    </div>
             </div>
         </div>
     <?php endforeach;  ?>
