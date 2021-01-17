@@ -1,108 +1,15 @@
+/* 01 General */
+/* 02 Navbar */
+/* 03 Index page */
+/* 04 Post Add page */
+/* 05 Users profile page */
+
+/* ********** */
+/* 01 General */
+/* ********** */
+
 body {
 	background-color: whitesmoke;
-}
-
-.username {
-	text-decoration: none;
-	font-size: 20px;
-	font-family: Verdana;
-	color: dimgrey;
-}
-
-#logo {
-	font-family: Billabong;
-	font-size: 50px;
-	text-decoration:none;
-}
-
-.rounded-circle {
-	width: 5%;
-	height: 5%;
-}
-
-.create_date {
-	color: lightgrey;
-}
-
-.profile {
-	width: 40px;
-}
-
-.camera {
-	margin-right: 2rem;
-	width: 50%;
-}
-
-.image {
-	width: 50%;
-}
-
-.buttons {
-	width: 60%;
-	height: auto;
-}
-.filters {
-	width: 54%;
-	height: 100px;
-}
-
-label {
-	display: block;
-	position: relative;
-	cursor: pointer;
-  }
-  
-  label:before {
-	background-color: white;
-	color: white;
-	content: " ";
-	display: block;
-	border-radius: 50%;
-	border: 1px solid grey;
-	position: absolute;
-	top: -5px;
-	left: -5px;
-	width: 25px;
-	height: 25px;
-	text-align: center;
-	line-height: 28px;
-	transition-duration: 0.4s;
-	transform: scale(0);
-  }
-  
-  label img {
-	transition-duration: 0.2s;
-	transform-origin: 50% 50%;
-  }
-  
-  :checked + label:before {
-	content: "✓";
-	background-color: green;
-	transform: scale(1);
-  }
-  
-  :checked + label img {
-	transform: scale(0.9);
-	z-index: -1;
-  }
-
-#filters
-{
-	position: absolute;
-	top: 10%;
-	left: 10%;
-}
-
-.filter {
-	width: 40%;
-}
-
-.information {
-	width: 70%;
-}
-
-.card-img-top {
-	border: 1px solid grey;
 }
 
 i {
@@ -110,60 +17,14 @@ i {
 	height: auto;
 }
 
-#edit_div {
-	display: none;
-}
+/* ********* */
+/* 02 Navbar */
+/* ********* */
 
-#thum {
-	height: 20rem;
-}
-
-.column {
-	float: left;
-	width: 23%;
-	height: auto;
-}
-
-.filter_img {
-	width: 70%;
-	height: 10%;
-}
-
-.edit-btn {
-	width: 40%;
-}
-
-.del-btn {
-	width: 40%;
-}
-.gallery {
-	width: 33.33%;
-	min-width: 200px;
-	min-height: auto;
-}
-.infos {
-	width: 25%;
-}
-.profile-pic {
-	border-radius: 50%;
-	width: 13vw;
-	height: 13vw;
-	object-fit: cover;
-
-}
-.update-btn {
-	width: 60%;
-}
-.cancel-btn {
-	width: 40%;
-}
-
-.post-user {
-	width: 3rem;
-	height: 3rem;
-	border-radius: 50%;  
-	border: 1px solid black;
-	object-fit: cover;
+#logo {
+	font-family: Billabong;
+	font-size: 50px;
+	text-decoration:none;
 }
 
 .out-btn {
@@ -210,20 +71,6 @@ i {
 	display: none;
 }
 
-.gallery-container {
-	width: 70%;
-}
-
-.post-container {
-	width: 60%;
-	height: 60rem;
-}
-.post-img {
-	width: 100%;
-	height: 50rem;
-	object-fit: cover;
-}
-
 .liste {
 	display: none;
 	position: absolute;
@@ -266,4 +113,161 @@ i {
 		width: 100%;
 		height: 50%;
 	}
+}
+
+/* ************* */
+/* 03 Index page */
+/* ************* */
+
+.post-container {
+	width: 60%;
+	height: 60rem;
+}
+
+.post-img {
+	width: 100%;
+	height: 50rem;
+	object-fit: cover;
+}
+
+.create_date {
+	color: lightgrey;
+}
+
+.post-user {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;  
+	border: 1px solid black;
+	object-fit: cover;
+}
+
+/* **************** */
+/* 04 Post Add page */
+/* **************** */
+
+.camera {
+	margin-right: 2rem;
+	width: 50%;
+}
+
+.image {
+	width: 50%;
+}
+
+.buttons {
+	width: 60%;
+	height: auto;
+}
+
+.column {
+	float: left;
+	width: 23%;
+	height: auto;
+}
+
+#thum {
+	height: 20rem;
+}
+
+.filter {
+	width: 40%;
+}
+
+.filter_img {
+	width: 70%;
+	height: 10%;
+}
+
+label {
+	display: block;
+	position: relative;
+	cursor: pointer;
+  }
+  
+  label:before {
+	background-color: white;
+	color: white;
+	content: " ";
+	display: block;
+	border-radius: 50%;
+	border: 1px solid grey;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 28px;
+	transition-duration: 0.4s;
+	transform: scale(0);
+  }
+  
+  label img {
+	transition-duration: 0.2s;
+	transform-origin: 50% 50%;
+  }
+  
+  :checked + label:before {
+	content: "✓";
+	background-color: green;
+	transform: scale(1);
+  }
+  
+  :checked + label img {
+	transform: scale(0.9);
+	z-index: -1;
+  }
+
+
+/* ********************* */
+/* 05 Users profile page */
+/* ********************* */
+
+.information {
+	width: 70%;
+}
+
+.infos {
+	width: 25%;
+}
+
+.profile-pic {
+	border-radius: 50%;
+	width: 13vw;
+	height: 13vw;
+	object-fit: cover;
+
+}
+.update-btn {
+	width: 60%;
+}
+.cancel-btn {
+	width: 40%;
+}
+
+#edit_div {
+	display: none;
+}
+
+.gallery-container {
+	width: 70%;
+}
+
+.gallery {
+	width: 33.33%;
+	min-width: 200px;
+	min-height: auto;
+}
+
+.edit-btn {
+	width: 40%;
+}
+
+.del-btn {
+	width: 40%;
+}
+
+.card-img-top {
+	border: 1px solid grey;
 }
