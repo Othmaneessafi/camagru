@@ -13,6 +13,8 @@
                 <img class="post-img card-img-top" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
             </div>
             <div class="card-footer">
+            <div class="row border">
+                  <div class="col-sm">
                       <?php
                         $liked = false;
                         foreach ($data['likes'] as $like) {
@@ -39,7 +41,10 @@
                             </i>
                         <?php }
                         ?>
-                      <a id="li_nb_<?php echo $post->postId;?>" class="card-link text-muted"><?php echo $post->like_nbr;?></a>
+                      <strong><p id="li_nb_<?php echo $post->postId;?>" class="card-link text-muted"><?php echo $post->like_nbr;?> Likes</p></strong>
+                      </div>
+                      <div class="col-sm"><i class="fa fa-comment"></i> Comments</div>
+                      </div>
 
                       <div class="cardbox-comments mt-2">
                           
@@ -50,27 +55,28 @@
                         
                           <br>
                       </div>
-                      <?php
-                        if(is_array($data['comments']))
-                        {
-                          foreach($data['comments'] as $comment)
+                      <div class="comment border shadow">
+                        <?php
+                          if(is_array($data['comments']))
                           {
-                            if($comment->post_id == $post->postId)
+                            foreach($data['comments'] as $comment)
                             {
-                            ?>
-                                <hr class="mb-1 mt-4">
-                                <ul class="media-list">
-                                    <li class="media">                    
-                                        <div class="media-body">
-                                            <strong class="text-dark">@<?php echo $comment->username;?></strong>
-                                            <p><?php echo htmlspecialchars($comment->content);?></p>
-                                        </div>
-                                    </li>
-                                </ul>
-                              <?php
+                              if($comment->post_id == $post->postId)
+                              {
+                              ?>
+                                  <ul class="media-list">
+                                      <li class="media">                    
+                                          <div class="media-body">
+                                              <strong class="text-dark"><?php echo $comment->username;?></strong>
+                                              <p><?php echo htmlspecialchars($comment->content);?></p>
+                                          </div>
+                                      </li>
+                                  </ul>
+                                <?php
+                              }
                             }
-                          }
-                        }?>
+                          }?>
+                        </div>
                       <div class="create_date mt-2">
                         <p><?php echo $post->create_at; ?></p>
                     </div>

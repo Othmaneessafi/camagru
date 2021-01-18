@@ -146,6 +146,14 @@ i {
 	background-color: white;
 	height: 5rem;
 }
+
+.comment {
+	background-color: white;
+}
+
+.comment ul{
+	list-style: none;
+}
 /* **************** */
 /* 04 Post Add page */
 /* **************** */
