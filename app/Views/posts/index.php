@@ -14,34 +14,37 @@
            
             <div class="">
               <div class="">
-                  <div class="">
+                  <div class="d-flex flex-row mb-2">
                       <?php
                         $liked = false;
                         foreach ($data['likes'] as $like) {
                             if ($like->user_id == $_SESSION['user_id'] && $like->post_id == $post->postId) {
                                 $liked = true; ?>
-                                <i class = "fa fa-heart mx-2 my-2"
+                                <i class = "fa fa-heart"
                                    data-post_id="<?php echo $post->postId; ?>" 
                                    data-user_id="<?php echo $_SESSION['user_id']; ?>" 
                                    data-like_nbr="<?php echo $post->like_nbr;?>" 
                                   onclick="like(event)"
                                   id="l_<?php echo $post->postId;?>"
-                                  name="li_<?php echo $post->postId;?>">    
+                                  name="li_<?php echo $post->postId;?>"
+                                  style="margin-top: 9px;margin-left:9px;">    
                                 </i>
                                 <?php
                             }
                         }
                         if ($liked === false) {?>
-                            <i class = "fa fa-heart-o mx-2 my-2"  
+                            <i class = "fa fa-heart-o"  
                               data-post_id="<?php echo $post->postId;?>" 
                               data-like_nbr="<?php echo $post->like_nbr;?>" 
                               data-user_id="<?php echo $_SESSION['user_id'];?>" 
                               onclick="like(event)" id="l_<?php echo $post->postId;?>"
-                              name="li_<?php echo $post->postId;?>"> 
+                              name="li_<?php echo $post->postId;?>"
+                              style="margin-top: 9px;margin-left:9px;">  
                             </i>
                         <?php }
                         ?>
-                          <strong><p id="li_nb_<?php echo $post->postId;?>" class="mx-2 col-sm"><?php echo $post->like_nbr;?> Likes</p>
+                          <strong><p id="li_nb_<?php echo $post->postId;?>" class="my-1"><?php echo $post->like_nbr;?> </p></strong>
+                          <strong><p class="my-1 mx-1">Likes</p></strong>
                       </div>
                       </div>
                       <div class="comment" id="comment">
