@@ -141,3 +141,11 @@ function comment(event)
   xhttp.send(params);
   setInterval(function(){ window.location.reload(); }, 50);
 }
+
+function showComments() {
+    var comment = document.getElementsByClassName("comment");
+    if (comment.style.display === "none")
+        comment.style.display = "block";
+    else
+        comment.style.display = "none";
+  }

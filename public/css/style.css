@@ -105,10 +105,6 @@ i {
 	.list-toggle:hover .liste {
 		display: block;
 	}
-	.post-container {
-		width: 70%;
-		height: auto;
-	}
 	.post-img {
 		width: 100%;
 		height: 50%;
@@ -121,7 +117,10 @@ i {
 
 .post-container {
 	width: 60%;
-	height: 65rem;
+	height: auto;
+	border: 1px solid gainsboro;
+	padding: 0;
+	padding-top: 10px;
 }
 
 .post-img {
@@ -130,6 +129,9 @@ i {
 	object-fit: cover;
 }
 
+.img-container {
+	width: 100%;
+}
 .create_date {
 	color: lightgrey;
 }
@@ -148,11 +150,33 @@ i {
 }
 
 .comment {
-	background-color: white;
+/* background-color: white; */
+	
 }
 
 .comment ul{
 	list-style: none;
+}
+
+.comment ul li {
+	border-bottom: 1px solid Gainsboro;
+	width: 80%;
+	border-radius: 10px;
+}
+
+.post-btn {
+	border-radius: 0;
+	border: 0;
+	background-color: white;
+	border-top: 0.5px solid Gainsboro;
+	
+}
+
+.comment-input
+{
+	border-radius: 0;
+	border: 0;
+	border-top: 0.5px solid Gainsboro ;
 }
 /* **************** */
 /* 04 Post Add page */

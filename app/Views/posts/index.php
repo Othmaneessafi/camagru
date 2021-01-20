@@ -4,23 +4,23 @@
 ?>
 
     <?php foreach($data['posts'] as $post) : ?>
-        <div class="post-container card card-body mb-3 shadow m-auto">
+        <div class="post-container  mb-3 shadow m-auto">
             <div class="d-flex justify-content-left h-auto mb-3 mx-2">
                 <img class="post-user  shadow my-auto" src="<?php echo $post->profile_img ?>" alt="profile">
                 <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.5rem;"><?php echo $post->username; ?></h4>
             </div>
+           
+                <img class="post-img " src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
+           
             <div class="">
-                <img class="post-img card-img-top" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
-            </div>
-            <div class="card-footer">
-            <div class="row border">
-                  <div class="col-sm">
+              <div class="">
+                  <div class="">
                       <?php
                         $liked = false;
                         foreach ($data['likes'] as $like) {
                             if ($like->user_id == $_SESSION['user_id'] && $like->post_id == $post->postId) {
                                 $liked = true; ?>
-                                <i class = "fa fa-heart"
+                                <i class = "fa fa-heart mx-2 my-2"
                                    data-post_id="<?php echo $post->postId; ?>" 
                                    data-user_id="<?php echo $_SESSION['user_id']; ?>" 
                                    data-like_nbr="<?php echo $post->like_nbr;?>" 
@@ -32,7 +32,7 @@
                             }
                         }
                         if ($liked === false) {?>
-                            <i class = "fa fa-heart-o"  
+                            <i class = "fa fa-heart-o mx-2 my-2"  
                               data-post_id="<?php echo $post->postId;?>" 
                               data-like_nbr="<?php echo $post->like_nbr;?>" 
                               data-user_id="<?php echo $_SESSION['user_id'];?>" 
@@ -41,21 +41,10 @@
                             </i>
                         <?php }
                         ?>
-                      <strong><p id="li_nb_<?php echo $post->postId;?>" class="card-link text-muted"><?php echo $post->like_nbr;?> Likes</p></strong>
+                          <strong><p id="li_nb_<?php echo $post->postId;?>" class="mx-2 col-sm"><?php echo $post->like_nbr;?> Likes</p>
                       </div>
-                      <div class="col-sm"><i class="fa fa-comment"></i> Comments</div>
                       </div>
-
-                      <div class="cardbox-comments mt-2">
-                          
-                          <textarea name="comment_<?php echo $post->postId;?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize:none"></textarea>
-                          <button onclick="comment(event)"
-                            data-c-user_id="<?php echo $_SESSION['user_id'];?>"
-                            data-c-post_id="<?php echo $post->postId;?>" class="btn btn-secondary pull-right">Add</button>
-                        
-                          <br>
-                      </div>
-                      <div class="comment border shadow">
+                      <div class="comment" id="comment">
                         <?php
                           if(is_array($data['comments']))
                           {
@@ -65,10 +54,10 @@
                               {
                               ?>
                                   <ul class="media-list">
-                                      <li class="media">                    
+                                      <li class="media ">                    
                                           <div class="media-body">
-                                              <strong class="text-dark"><?php echo $comment->username;?></strong>
-                                              <p><?php echo htmlspecialchars($comment->content);?></p>
+                                              <strong class="text-dark mx-2"><?php echo $comment->username;?></strong>
+                                              <small><p class="mx-4 text-muted"><?php echo htmlspecialchars($comment->content);?></p></small>
                                           </div>
                                       </li>
                                   </ul>
@@ -77,9 +66,19 @@
                             }
                           }?>
                         </div>
-                      <div class="create_date mt-2">
-                        <p><?php echo $post->create_at; ?></p>
-                    </div>
+                        <div class="create_date mx-2">
+                          <p><?php echo $post->create_at; ?></p>
+                        </div>
+                      <div class="">
+                          <div class="input-group">
+                            <input type="text" class="comment-input form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="comment_<?php echo $post->postId;?>" placeholder="write a comment...">
+                            <div class="input-group-append">
+                              <button onclick="comment(event)"
+                            data-c-user_id="<?php echo $_SESSION['user_id'];?>"
+                            data-c-post_id="<?php echo $post->postId;?>"class="post-btn btn btn-outline-primary" type="button">Post</button>
+                            </div>
+                          </div>
+                      </div>
             </div>
         </div>
     <?php endforeach;  ?>
