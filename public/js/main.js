@@ -1,5 +1,5 @@
-// if (window.location.href == "https://192.168.99.112:8081/posts/add")
-// {
+if (window.location.href == server_name + "/posts/add")
+{
     var video = document.getElementById('video'),
         canvas = document.getElementById('pic'),
         context = canvas.getContext('2d');
@@ -10,14 +10,18 @@
         function streamWebCam (stream) {
             video.srcObject = stream;
             video.play();
+            width = stream.getTracks()[0].getSettings().width;
+            height = stream.getTracks()[0].getSettings().height;
+            canvas.width = width;
+            canvas.height = height;
         }
         function throwError (e) {
             alert(e.name);
         }
-
+        
     document.getElementById('take').addEventListener("click", function(){
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        context.drawImage(elem, 10, 10, 50, 50);
+        context.drawImage(elem, 10, 10, 150, 150);
     });
 
     document.getElementById('clear').addEventListener("click", function(){
@@ -49,7 +53,7 @@
         document.getElementById('take').disabled = false;
     }
 
-// }
+}
 
 function editShow() {
     document.getElementById('edit_div').style.display = "block";
@@ -72,7 +76,7 @@ function saveImage()
     var dataURL = canvas.toDataURL("image/png");
     var params = "imgBase64=" + dataURL + "&emoticon=" + elem;
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost/Camagru/Posts/saveImage');
+    xhr.open('POST', server_name + '/posts/saveImage');
 
     xhr.withCredentialfull_canvas = true;
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -96,15 +100,15 @@ function like(event)
   var userid = (event.target && event.target.getAttribute('data-user_id'));
   var like_nbr = (event.target && event.target.getAttribute('data-like_nbr'));
   var li = document.getElementById('l_'+postid);
-  var cls = li.getAttribute('class');
+  var c = li.getAttribute('class');
   var li_nb = document.getElementById('li_nb_'+postid);
   var sym = 0;
   if (userid == "") {
-    window.location.replace("https://192.168.99.113:8081/users/login");
+    window.location.replace(server_name + "/users/login");
     return ;
   }
   var xhttp = new XMLHttpRequest();
-  xhttp.open('POST', 'https://192.168.99.113:8081/posts/like');
+  xhttp.open('POST', server_name + '/posts/like');
   xhttp.withCredentials = true;
   if (event.target.className == "fa fa-heart-o")
   {
@@ -112,7 +116,6 @@ function like(event)
       like_nbr++;
       li_nb.innerHTML = like_nbr;
       event.target.setAttribute('data-like_nbr', like_nbr);
-      
   }
   else if (event.target.className == "fa fa-heart")
   {
@@ -122,9 +125,8 @@ function like(event)
       like_nbr--;
       event.target.setAttribute('data-like_nbr', like_nbr);
       li_nb.innerHTML = like_nbr + sym;
-
   }
-  var params = "post_id=" + postid + "&user_id=" + userid + "&c=" + cls + "&like_nbr=" + like_nbr;
+  var params = "post_id=" + postid + "&user_id=" + userid + "&c=" + c + "&like_nbr=" + like_nbr;
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(params);
 }
@@ -143,12 +145,12 @@ function comment(event)
       return ;
   }
   if (userid == "") {
-    window.location.replace("https://192.168.99.113:8081/users/login");
+    window.location.replace(server_name + "/users/login");
     return;
   }
   var xhttp = new XMLHttpRequest();
   var params = "c_post_id=" + postid + "&c_user_id=" + userid + "&content=" + commentVal;
-  xhttp.open('POST', 'https://192.168.99.113:8081/posts/comment');
+  xhttp.open('POST', server_name + '/posts/comment');
   xhttp.withCredentials = true;
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(params);

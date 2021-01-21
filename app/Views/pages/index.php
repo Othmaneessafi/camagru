@@ -4,15 +4,17 @@
 ?>
 
     <?php foreach($data['posts'] as $post) : ?>
-        <div class="post-container card card-body mb-3 shadow m-auto">
+        <div class="post-container  mb-3 shadow m-auto">
             <div class="d-flex justify-content-left h-auto mb-3 mx-2">
                 <img class="post-user  shadow my-auto" src="<?php echo $post->profile_img ?>" alt="profile">
                 <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.5rem;"><?php echo $post->username; ?></h4>
             </div>
+           
+                <img class="post-img " src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
+           
             <div class="">
-                <img class="post-img card-img-top" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
-            </div>
-            <div class="card-footer">
+              <div class="">
+                  <div class="d-flex flex-row mb-2">
                       <?php
                         $liked = false;
                         foreach ($data['likes'] as $like) {
@@ -24,7 +26,8 @@
                                    data-like_nbr="<?php echo $post->like_nbr;?>" 
                                   onclick="like(event)"
                                   id="l_<?php echo $post->postId;?>"
-                                  name="li_<?php echo $post->postId;?>">    
+                                  name="li_<?php echo $post->postId;?>"
+                                  style="margin-top: 9px;margin-left:9px;">    
                                 </i>
                                 <?php
                             }
@@ -35,47 +38,50 @@
                               data-like_nbr="<?php echo $post->like_nbr;?>" 
                               data-user_id="<?php echo $_SESSION['user_id'];?>" 
                               onclick="like(event)" id="l_<?php echo $post->postId;?>"
-                              name="li_<?php echo $post->postId;?>"> 
+                              name="li_<?php echo $post->postId;?>"
+                              style="margin-top: 9px;margin-left:9px;">  
                             </i>
                         <?php }
                         ?>
-                      <a id="li_nb_<?php echo $post->postId;?>" class="card-link text-muted"><?php echo $post->like_nbr;?></a>
-              
-                      <a class="card-link"><i class="fa fa-comment"></i> Comments</a>
-
-                      <div class="cardbox-comments mt-2">
-                          
-                          <textarea name="comment_<?php echo $post->postId;?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize:none"></textarea>
-                          <button onclick="comment(event)"
-                            data-c-user_id="<?php echo $_SESSION['user_id'];?>"
-                            data-c-post_id="<?php echo $post->postId;?>" class="btn btn-secondary pull-right">Add</button>
-                        
-                          <br>
+                          <strong><p id="li_nb_<?php echo $post->postId;?>" class="my-1"><?php echo $post->like_nbr;?> </p></strong>
+                          <strong><p class="my-1 mx-1">Likes</p></strong>
                       </div>
-                      <?php
-                        if(is_array($data['comments']))
-                        {
-                          foreach($data['comments'] as $comment)
+                      </div>
+                      <div class="comment" id="comment">
+                        <?php
+                          if(is_array($data['comments']))
                           {
-                            if($comment->post_id == $post->post_id)
+                            foreach($data['comments'] as $comment)
                             {
-                            ?>
-                                <hr class="mb-1 mt-4">
-                                <ul class="media-list">
-                                    <li class="media">                    
-                                        <div class="media-body">
-                                            <strong class="text-dark">@<?php echo $comment->username;?></strong>
-                                            <p><?php echo htmlspecialchars($comment->content);?></p>
-                                        </div>
-                                    </li>
-                                </ul>
-                              <?php
+                              if($comment->post_id == $post->postId)
+                              {
+                              ?>
+                                  <ul class="media-list">
+                                      <li class="media ">                    
+                                          <div class="media-body">
+                                              <strong class="text-dark mx-2"><?php echo $comment->username;?></strong>
+                                              <small><p class="mx-4 text-muted"><?php echo htmlspecialchars($comment->content);?></p></small>
+                                          </div>
+                                      </li>
+                                  </ul>
+                                <?php
+                              }
                             }
-                          }
-                        }?>
-                      <div class="create_date mt-2">
-                        <p><?php echo $post->create_at; ?></p>
-                    </div>
+                          }?>
+                        </div>
+                        <div class="create_date mx-2">
+                          <p><?php echo $post->create_at; ?></p>
+                        </div>
+                      <div class="">
+                          <div class="input-group">
+                            <input type="text" class="comment-input form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="comment_<?php echo $post->postId;?>" placeholder="write a comment...">
+                            <div class="input-group-append">
+                              <button onclick="comment(event)"
+                            data-c-user_id="<?php echo $_SESSION['user_id'];?>"
+                            data-c-post_id="<?php echo $post->postId;?>"class="post-btn btn btn-outline-primary" type="button">Post</button>
+                            </div>
+                          </div>
+                      </div>
             </div>
         </div>
     <?php endforeach;  ?>
