@@ -8,7 +8,7 @@
                 <video class="w-100 h-100" id="video" autoplay></video>
             </div>
             <div class="image h-auto bg-light shadow">
-                <canvas id="pic"  class="align-self-center h-auto w-auto"></canvas>
+                <canvas id="pic" class="align-self-center"></canvas>
             </div>
         </div>
         <div class="options my-4 row w-100 h-auto">
@@ -27,12 +27,12 @@
                 </div>
                 <div class="column rounded shadow">
                     <input class="d-none" type="radio" name="filter" id="hat" value="hat" onclick="choose_filter()">
-		  			<label for="hat"><img src="../public/img/hat.png" class="filter_img"></label>
+		  			<label for="hat" class="w-auto h-auto"><img src="../public/img/hat.png" class="filter_img"></label>
                 </div>
             </div>
             <div class="buttons row  d-flex justify-content-center my-auto">
                 <input type="button" class="column btn btn-outline-info shadow w-auto h-auto mx-1" value="Take photo" id="take" disabled>
-                <input type="button" class="column btn btn-outline-success shadow w-auto h-auto mx-1" value="Save photo" id="save">
+                <input type="button" class="column btn btn-outline-success shadow w-auto h-auto mx-1" value="Save photo" id="save" onclick="saveImage()">
                 <input type="button" class="column btn btn-outline-danger shadow w-auto h-auto mx-1" value="Clear photo" id="clear">
                 <input type="file" class="column form-control shadow w-auto h-auto mx-1" value="Upload photo" onchange="setImage(this)">
             </div>

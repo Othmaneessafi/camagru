@@ -16,7 +16,18 @@
 
             return $res;
         }
-
+        public function save($data){
+            $this->db->query('INSERT INTO posts (user_id, content) VALUES(:user_id, :path)');
+    
+            $this->db->bind(':user_id', $data['user_id']);
+            $this->db->bind(':path', $data['path']);
+    
+            if($this->db->execute()){
+                return true;
+            }else {
+                return false;
+            }
+        }
         public function del($id)
         {
             $this->db->query('DELETE FROM posts WHERE id = :id');

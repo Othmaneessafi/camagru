@@ -16,12 +16,12 @@
         }
 
     document.getElementById('take').addEventListener("click", function(){
-        context.drawImage(video, 0, 0, 500, 400);
-        context.drawImage(elem, 10, 10, 150, 150);
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.drawImage(elem, 10, 10, 50, 50);
     });
 
     document.getElementById('clear').addEventListener("click", function(){
-    context.clearRect(0, 0, 500, 400);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     });
 
     mask = document.getElementById('mask'),
@@ -30,8 +30,8 @@
     hat = document.getElementById('hat');
 
     var elem = document.createElement('img');
-    elem.setAttribute("height", "150");
-    elem.setAttribute("width", "150");
+    elem.setAttribute("height", "50");
+    elem.setAttribute("width", "50");
     elem.setAttribute("id", "filters");
 
     function choose_filter()
@@ -65,6 +65,19 @@ function menuToggle(){
 
         const toggleMenu = document.querySelector('.mono');
         toggleMenu.classList.toggle('active');
+}
+
+function saveImage()
+{
+    var dataURL = canvas.toDataURL("image/png");
+    var params = "imgBase64=" + dataURL + "&emoticon=" + elem;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost/Camagru/Posts/saveImage');
+
+    xhr.withCredentialfull_canvas = true;
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(params);
+    setInterval(function(){ window.location.reload(); }, 50);
 }
 
 function setImage()
