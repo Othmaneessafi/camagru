@@ -144,4 +144,16 @@
             else
                 return false;
         }
+
+        public function gets_user($user_id)
+        {
+            
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            $this->db->bind(':id',$user_id);
+            $result = $this->db->singleFetch();
+            if($result)
+                return ($result);
+            else
+                return false;
+        } 
     }

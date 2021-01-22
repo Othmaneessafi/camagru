@@ -8,6 +8,7 @@
                 redirect('users/login');
 
             $this->postModel = $this->model('Post');
+            $this->userModel = $this->model('User');
         }
 
         public function index()
@@ -124,13 +125,21 @@
                     'user_id' => $_POST['c_user_id'],
                     'content' => $_POST['content'],
                 ];
-                print_r($data);
-                // $com = $this->userModel->get_commenter($data['user_id']);
-                // $uid = $this->postModel->getUserByPostId($data['post_id']);
-                // $d = $this->userModel->get_dest($uid->user_id);
-                if($this->postModel->addComment($data))
+                $sender = $this->userModel->gets_user($data['user_id']);
+                $uid = $this->postModel->getUserByPostId($data['post_id']);
+                $dest = $this->userModel->gets_user($uid->user_id);
+                if($this->postModel->addComment($data) && $_SESSION['notification'] == 1)
                 {
-
+                        $to_email = $dest->email;
+                        $subject = "You get a comment";
+                        $body = '<p><h1>Your image gets a comment</h1>
+                            <br /><br />
+                            <br/> 
+                            '.$sender->username.' commented on your image.
+                            </p>';
+                        $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";    
+                        mail($to_email, $subject, $body, $headers);
                 }
             }
         }

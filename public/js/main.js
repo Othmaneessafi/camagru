@@ -1,27 +1,29 @@
+
 if (window.location.href == server_name + "/posts/add")
 {
     var video = document.getElementById('video'),
         canvas = document.getElementById('pic'),
-        context = canvas.getContext('2d');
+        context = canvas.getContext('2d'),
+        uploadImg = document.getElementById('upload');
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.oGetUserMedia || navigator.msGetUserMedia;
-        if(navigator.getUserMedia){
-            navigator.getUserMedia({video:true}, streamWebCam, throwError);
-        }
-        function streamWebCam (stream) {
-            video.srcObject = stream;
-            video.play();
-            width = stream.getTracks()[0].getSettings().width;
-            height = stream.getTracks()[0].getSettings().height;
-            canvas.width = width;
-            canvas.height = height;
-        }
-        function throwError (e) {
-            alert(e.name);
-        }
+    if(navigator.getUserMedia){
+        navigator.getUserMedia({video:true}, streamWebCam, throwError);
+    }
+    function streamWebCam (stream) {
+        video.srcObject = stream;
+        video.play();
+        width = stream.getTracks()[0].getSettings().width;
+        height = stream.getTracks()[0].getSettings().height;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    function throwError (e) {
+        alert(e.name);
+    }
         
     document.getElementById('take').addEventListener("click", function(){
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        context.drawImage(elem, 10, 10, 150, 150);
+        context.drawImage(elem, 10, 10, 140, 140);
     });
 
     document.getElementById('clear').addEventListener("click", function(){
@@ -53,6 +55,30 @@ if (window.location.href == server_name + "/posts/add")
         document.getElementById('take').disabled = false;
     }
 
+    function isImage(file)
+    {
+    const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+    const fileType = file['type'];
+    if (validImageTypes.indexOf(fileType))
+        return true;
+    else
+        return false;
+    }
+
+
+    window.addEventListener('DOMContentLoaded', uploadImage);
+    function uploadImage(){
+        uploadImg.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+            var img = new Image;
+            img.onload = function () {
+                context.drawImage(img, 0, 0, canvas.width, canvas.height);
+            }
+            if(file && isImage(file))
+            img.src = URL.createObjectURL(file);
+        });
+    }
+
 }
 
 function editShow() {
@@ -82,15 +108,6 @@ function saveImage()
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(params);
     setInterval(function(){ window.location.reload(); }, 50);
-}
-
-function setImage()
-{
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        document.getElementById("tempImg").setAttribute("src", e.target.result);
-    };
-    reader.readAsDataURL(input.file[0]);
 }
 
 function like(event)
@@ -154,5 +171,5 @@ function comment(event)
   xhttp.withCredentials = true;
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(params);
-  setInterval(function(){ window.location.reload(); }, 50);
+  setInterval(function(){ window.location.reload(); }, 200);
 }

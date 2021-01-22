@@ -230,6 +230,7 @@
             $_SESSION['user_username'] = $user->username;
             $_SESSION['user_fullname'] = $user->fullname;
             $_SESSION['user_img'] = $user->profile_img;
+            $_SESSION['notification'] = $user->notification;
 
             redirect('posts');
         }
@@ -360,26 +361,4 @@
                 redirect('users/profile');
 
         }
-
-        public function get_commenter($user_id)
-        {
-            $this->db->query('SELECT * FROM users WHERE id = :id');
-            $this->db->bind(':id',$user_id);
-            $result = $this->db->single();
-            if($result)
-            return ($result);
-            else
-            return false;
-            } 
-
-            public function get_dest($user_id)
-            {
-            $this->db->query('SELECT * FROM users WHERE id = :id');
-            $this->db->bind(':id',$user_id);
-            $result = $this->db->single();
-            if($result)
-            return ($result);
-            else
-            return false;
-  	    } 
     }
