@@ -13,27 +13,27 @@
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="text" name="fullname" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_fullname'])) ? 'is-invalid' : ''; ?>" placeholder="Full Name" value="<?php echo $data['fullname']; ?>">
-                    <span class="invalid-feedback"> <?php echo($data['err_fullname']); ?></span>
+                    <span class="invalid-feedback"> <?php if (!empty($data['err_fullname'])) echo($data['err_fullname']); ?></span>
                 </div>
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="email" name="email" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_email'])) ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?php echo $data['email']; ?>">
-                    <span class="invalid-feedback"><?php echo $data['err_email'] ?></span>
+                    <span class="invalid-feedback"><?php if (!empty($data['err_email'])) echo $data['err_email'] ?></span>
                 </div>
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="text" name="username" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_username'])) ? 'is-invalid' : ''; ?>" placeholder="Username" value="<?php echo $data['username']; ?>">
-                    <span class="invalid-feedback"><?php echo $data['err_username'] ?></span>
+                    <span class="invalid-feedback"><?php if (!empty($data['err_username'])) echo $data['err_username'] ?></span>
                 </div>
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="password" name="password" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_password'])) ? 'is-invalid' : ''; ?>" placeholder="Password" value="<?php echo $data['password']; ?>">
-                    <span class="invalid-feedback"><?php echo $data['err_password'] ?></span>
+                    <span class="invalid-feedback"><?php if (!empty($data['err_password'])) echo $data['err_password'] ?></span>
                 </div>
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="password" name="confirmPwd" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_confirmPwd'])) ? 'is-invalid' : ''; ?>" placeholder="Confirm Password" value="<?php echo $data['confirm_pwd']; ?>">
-                    <span class="invalid-feedback"><?php echo $data['err_confirmPwd'] ?></span>
+                    <span class="invalid-feedback"><?php if (!empty($data['err_confirmPwd'])) echo $data['err_confirmPwd'] ?></span>
                 </div>
                 <div class="row mb-4 w-75 ml-5 w-75 m-auto">
                     <input type="submit" value="Sign up" class="btn btn-primary btn-block">

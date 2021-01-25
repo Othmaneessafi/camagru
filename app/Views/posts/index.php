@@ -1,17 +1,15 @@
 <?php
     require_once CAMAGRU_ROOT . '/Views/inc/header.php';
     require_once CAMAGRU_ROOT . '/Views/inc/nav.php';
+    if (isset($_SESSION['user_id'])):
 ?>
-
     <?php foreach($data['posts'] as $post) : ?>
         <div class="post-container  mb-3 shadow m-auto">
             <div class="d-flex justify-content-left h-auto mb-3 mx-2">
                 <img class="post-user  shadow my-auto" src="<?php echo $post->profile_img ?>" alt="profile">
                 <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.5rem;"><?php echo $post->username; ?></h4>
             </div>
-           
-                <img class="post-img " src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
-           
+                <img class="post-img" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
             <div class="">
               <div class="">
                   <div class="d-flex flex-row mb-2">
@@ -84,5 +82,7 @@
                       </div>
             </div>
         </div>
-    <?php endforeach;  ?>
+    <?php endforeach;
+      else : redirect('pages/index');
+        endif; ?>
 <?php require_once CAMAGRU_ROOT . '/Views/inc/footer.php'; ?>

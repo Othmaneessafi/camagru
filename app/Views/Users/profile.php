@@ -1,20 +1,20 @@
 <?php
     require_once CAMAGRU_ROOT . '/Views/inc/header.php';
     require_once CAMAGRU_ROOT . '/Views/inc/nav.php';
-    if (!isset($_SESSION['userid'])):
+    if (isset($_SESSION['user_id'])):
 ?>
 <?php pop_up('updated'); ?>
 
 
-<div class="information d-flex flex-row mx-auto h-auto w-100">
-    <div class="infos mx-5 h-auto">
+<div class="information mx-auto h-auto w-100">
+    <div class="infos h-auto">
         <img src="<?php echo $_SESSION['user_img'] ?>" class="profile-pic card-img-top shadow" alt="profile">
         <div class="card-body">
-            <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname" style="font-size: 1.5vw;"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
-            <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2" style="font-size: 1vw;"><?php echo $_SESSION['user_username'] ?></h5></span><br>
-            <span class="row p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email" style="font-size: 0.6vw;"><i class="fa fa-envelope"></i><?php echo '  '.$_SESSION['user_email'] ?></small></strong></span>
+            <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
+            <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2"><?php echo $_SESSION['user_username'] ?></h5></span><br>
+            <span class="row p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email"><i class="fa fa-envelope"></i><?php echo '  '.$_SESSION['user_email'] ?></small></strong></span>
         </div>
-        <input class="btn btn-outline-secondary w-100 mx-auto shadow" id="edit_profile" onclick="editShow()" value="Edit profile">
+        <input class="btn btn-outline-secondary shadow" id="edit_profile" onclick="editShow()" value="Edit profile">
         <form method="post" action="<?php echo URL_ROOT; ?>/users/update_user">
             <div class="card-body row" id="edit_div">
                 <div class="d-flex my-2">
@@ -36,7 +36,7 @@
                 <div class="form-check">
                     <input class="form-check-input" name="notifs" type="checkbox" checked> Recieve email notifications
                 </div>
-                <div class="d-flex my-3 w-100 h-auto mx-auto">
+                <div class="d-flex my-3 h-auto mx-auto">
                     <input type="submit" class="update-btn btn btn-outline-success h-auto mx-2 shadow" value="update">
                     <input type="button" class="cancel-btn btn btn-outline-danger h-auto shadow" value="cancel" onclick="editHide()"></button>
                 </div>

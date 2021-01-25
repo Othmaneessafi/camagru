@@ -79,7 +79,9 @@ i {
 	background-color: whitesmoke;
 	border: 1px solid black;
 	width: 10rem;
+	z-index: 100;
 }
+
 .liste ul {
 	list-style: none;
 }
@@ -96,26 +98,32 @@ i {
 	.out-btn {
 		display: none;
 	}
+	.out-link {
+		display: none;
+	}
 	.profile-btn {
 		display: none;
 	}
 	.list-toggle {
 		display: block;
 	}
-	.list-toggle:hover .liste {
-		display: block;
-	}
 	.post-img {
 		width: 100%;
 		height: auto;
 	}
+
+	.profile-pic {
+		border-radius: 50%;
+		width: 20vw;
+		height: 20vw;
+		object-fit: cover;
+	
+	}
 }
 
-@media screen and (max-height:750px)
+@media screen and (min-width:1200px)
 {
-	.post-img {
-		object-fit: fill;
-	}
+	
 }
 /* ************* */
 /* 03 Index page */
@@ -131,7 +139,7 @@ i {
 
 .post-img {
 	width: 100%;
-	height: 70vh;
+	height: 40vh;
 }
 
 .img-container {
@@ -197,20 +205,24 @@ i {
 .buttons {
 	width: 30vw;
 	height: auto;
+	margin: 10px;
 }
 
 .column {
 	float: left;
 	width: 23%;
-	height: auto;
+	height: 4vh;
+	margin-right: 1px;
 }
 
 #thum {
-	height: 20rem;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
 }
 
 .filter {
-	width: 40%;
+	width: 30%;
 }
 
 .filter_img {
@@ -232,10 +244,32 @@ i {
 	height: 100%;
 }
 
+#upload {
+	width: 5%;
+}
+
+@media screen and (max-width:800px)
+{
+	#thum {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.filter_img {
+		width: 2vh;
+		height: 2vh;
+		position: relative;
+		left: -10px;
+		top: 7px;
+	}
+}
+
 label {
 	display: block;
 	position: relative;
 	cursor: pointer;
+	width: 100%;
+	height: 100%;
   }
   
   label:before {
@@ -265,6 +299,7 @@ label {
 	content: "✓";
 	background-color: green;
 	transform: scale(1);
+	z-index: 100;
   }
   
   :checked + label img {
@@ -279,16 +314,19 @@ label {
 
 .information {
 	width: 70%;
+	display: flex;
+	flex-direction: row;
 }
 
 .infos {
 	width: 25%;
+	margin-right: 5%;
 }
 
 .profile-pic {
 	border-radius: 50%;
-	width: 13vw;
-	height: 13vw;
+	width: 12vw;
+	height: 12vw;
 	object-fit: cover;
 
 }
@@ -321,10 +359,85 @@ label {
 	width: 40%;
 }
 
+#edit_profile {
+	width: 100%;
+}
+
 .del-btn {
 	width: 40%;
 }
 
 .card-img-top {
 	border: 1px solid grey;
+}
+
+.profile-fullname {
+	font-size: 1.5vw;
+}
+
+.profile-username {
+	font-size: 1.5vw;
+}
+
+.profile-email {
+	font-size: 0.6vw;
+}
+
+@media screen and (max-width:800px)
+{
+	#thum {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.filter_img {
+		width: 2vh;
+		height: 2vh;
+		position: relative;
+		left: -10px;
+		top: 7px;
+	}
+
+	.information {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.infos {
+		width: 100%;
+		margin-bottom: 5%;
+		margin-left: auto;
+	}
+	#edit_div {
+		width: 80%;
+	}
+	#edit_profile {
+		width: 80%;
+	}
+
+	.gallery-container {
+		width: 100%;
+	}
+
+	.profile-pic {
+		border-radius: 50%;
+		width: 40vw;
+		height: 40vw;
+		object-fit: cover;
+	}
+
+	.profile-fullname
+	{
+		font-size: 5vw;
+	}
+
+	.profile-username
+	{
+		font-size: 3vw;
+	}
+
+	.profile-email
+	{
+		font-size: 3vw;
+	}
 }

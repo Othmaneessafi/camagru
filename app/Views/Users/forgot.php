@@ -9,7 +9,7 @@
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="text" name="forgotEmail" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_forgotEmail'])) ? 'is-invalid' : ''; ?>" placeholder="Email" value="<?php echo $data['forgotEmail']; ?>">
-                    <span class="invalid-feedback"><?php echo $data['err_forgotEmail'] ?></span>
+                    <span class="invalid-feedback"><?php if (!empty($data['err_forgotEmail'])) echo $data['err_forgotEmail'] ?></span>
                 </div>
                 <div class="row mb-4 w-75 ml-5 m-auto">
                     <input type="submit" value="Reset password" class="btn btn-primary btn-block">

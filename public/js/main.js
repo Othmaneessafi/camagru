@@ -1,3 +1,5 @@
+list_toggle = document.getElementById('list-toggle');
+
 
 if (window.location.href == server_name + "/posts/add")
 {
@@ -24,10 +26,12 @@ if (window.location.href == server_name + "/posts/add")
     document.getElementById('take').addEventListener("click", function(){
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         context.drawImage(elem, 10, 10, 140, 140);
+        document.getElementById('save').disabled = false;
     });
 
     document.getElementById('clear').addEventListener("click", function(){
-    context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('save').disabled = true;
     });
 
     mask = document.getElementById('mask'),
@@ -54,7 +58,7 @@ if (window.location.href == server_name + "/posts/add")
         document.getElementById('vi').appendChild(elem);
         document.getElementById('take').disabled = false;
     }
-
+    
     function isImage(file)
     {
     const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
@@ -76,6 +80,8 @@ if (window.location.href == server_name + "/posts/add")
             }
             if(file && isImage(file))
             img.src = URL.createObjectURL(file);
+            if (uploadImg.files.length != 0)
+            document.getElementById('save').disabled = false;
         });
     }
 
@@ -91,12 +97,6 @@ function editHide() {
     document.getElementById('edit_profile').style.display = "block";
 }
 
-function menuToggle(){
-
-        const toggleMenu = document.querySelector('.mono');
-        toggleMenu.classList.toggle('active');
-}
-
 function saveImage()
 {
     var dataURL = canvas.toDataURL("image/png");
@@ -107,7 +107,7 @@ function saveImage()
     xhr.withCredentialfull_canvas = true;
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(params);
-    setInterval(function(){ window.location.reload(); }, 50);
+    setInterval(function(){ window.location.reload(); }, 200);
 }
 
 function like(event)
@@ -173,3 +173,17 @@ function comment(event)
   xhttp.send(params);
   setInterval(function(){ window.location.reload(); }, 200);
 }
+
+var i = false;
+list_toggle.addEventListener("click", function(){
+    if (i == false)
+    {
+        document.getElementById('liste').style.display = "block";
+        i = true;
+    }
+    else
+    {
+        document.getElementById('liste').style.display = "none";
+        i = false;
+    }
+});

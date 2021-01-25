@@ -26,7 +26,9 @@
 
         public function add()
         {
+            $post = $this->postModel->getPosts();
             $data = [
+                'posts' =>$post,
                 'title' =>'',
                 'content' => ''
             ];
@@ -61,7 +63,7 @@
                 
             }else
                 return false;	  
-                }
+            }
         }
 
         public function edit_post($id)

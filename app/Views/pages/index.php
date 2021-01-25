@@ -15,34 +15,8 @@
             <div class="">
               <div class="">
                   <div class="d-flex flex-row mb-2">
-                      <?php
-                        $liked = false;
-                        foreach ($data['likes'] as $like) {
-                            if ($like->user_id == $_SESSION['user_id'] && $like->post_id == $post->postId) {
-                                $liked = true; ?>
-                                <i class = "fa fa-heart"
-                                   data-post_id="<?php echo $post->postId; ?>" 
-                                   data-user_id="<?php echo $_SESSION['user_id']; ?>" 
-                                   data-like_nbr="<?php echo $post->like_nbr;?>" 
-                                  onclick="like(event)"
-                                  id="l_<?php echo $post->postId;?>"
-                                  name="li_<?php echo $post->postId;?>"
-                                  style="margin-top: 9px;margin-left:9px;">    
-                                </i>
-                                <?php
-                            }
-                        }
-                        if ($liked === false) {?>
-                            <i class = "fa fa-heart-o"  
-                              data-post_id="<?php echo $post->postId;?>" 
-                              data-like_nbr="<?php echo $post->like_nbr;?>" 
-                              data-user_id="<?php echo $_SESSION['user_id'];?>" 
-                              onclick="like(event)" id="l_<?php echo $post->postId;?>"
-                              name="li_<?php echo $post->postId;?>"
-                              style="margin-top: 9px;margin-left:9px;">  
+                            <i class = "fa fa-heart-o"  onclick="like(event)" style="margin-top: 9px;margin-left:9px;">  
                             </i>
-                        <?php }
-                        ?>
                           <strong><p id="li_nb_<?php echo $post->postId;?>" class="my-1"><?php echo $post->like_nbr;?> </p></strong>
                           <strong><p class="my-1 mx-1">Likes</p></strong>
                       </div>
@@ -76,9 +50,7 @@
                           <div class="input-group">
                             <input type="text" class="comment-input form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="comment_<?php echo $post->postId;?>" placeholder="write a comment...">
                             <div class="input-group-append">
-                              <button onclick="comment(event)"
-                            data-c-user_id="<?php echo $_SESSION['user_id'];?>"
-                            data-c-post_id="<?php echo $post->postId;?>"class="post-btn btn btn-outline-primary" type="button">Post</button>
+                              <button onclick="comment(event)" class="post-btn btn btn-outline-primary" type="button">Post</button>
                             </div>
                           </div>
                       </div>

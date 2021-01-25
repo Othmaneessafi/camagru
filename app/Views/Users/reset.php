@@ -10,7 +10,7 @@
                 <div class="form-group mb-3 w-75 m-auto">
                     <input type="password" name="newPassword" class="form-control form-control-lg 
                         <?php echo (!empty($data['err_newPassword'])) ? 'is-invalid' : ''; ?>" placeholder="New password" value="<?php echo $data['newpassword']; ?>">
-                    <span class="invalid-feedback"><?php echo $data['err_newPassword'] ?></span>
+                    <span class="invalid-feedback"><?php if (!empty($data['err_newPassword'])) echo $data['err_newPassword'] ?></span>
                 </div>
                 <div class="row mb-4 w-75 ml-5 m-auto">
                     <input type="submit" value="Reset" class="btn btn-primary btn-block">
