@@ -130,7 +130,7 @@
                 $sender = $this->userModel->gets_user($data['user_id']);
                 $uid = $this->postModel->getUserByPostId($data['post_id']);
                 $dest = $this->userModel->gets_user($uid->user_id);
-                if($this->postModel->addComment($data) && $_SESSION['notification'] == 1)
+                if($this->postModel->addComment($data) && $dest->notification == 1)
                 {
                         $to_email = $dest->email;
                         $subject = "You get a comment";

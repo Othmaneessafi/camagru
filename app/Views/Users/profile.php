@@ -34,7 +34,7 @@
                     <input type="password" class="form-control" name="new_password" placeholder="Password">
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" name="notifs" type="checkbox" checked> Recieve email notifications
+                    <input class="form-check-input" name="notifs" type="checkbox" <?php if ($_SESSION['notification']) echo 'checked'; ?>> Recieve email notifications
                 </div>
                 <div class="d-flex my-3 h-auto mx-auto">
                     <input type="submit" class="update-btn btn btn-outline-success h-auto mx-2 shadow" value="update">

@@ -97,11 +97,11 @@
                 return false;
         }
 
-        public function update_username($new_username, $data){
+        public function update_username($new_username, $id){
 
             $this->db->query('UPDATE users SET username = :username WHERE id = :id');
             $this->db->bind(':username', $new_username);
-            $this->db->bind(':id', $data);
+            $this->db->bind(':id', $id);
 
             if ($this->db->execute())
                 return true;
@@ -109,11 +109,11 @@
                 return false;
         }
 
-        public function update_fullname($new_fullname, $data){
+        public function update_fullname($new_fullname, $id){
 
             $this->db->query('UPDATE users SET fullname = :fullname WHERE id = :id');
             $this->db->bind(':fullname', $new_fullname);
-            $this->db->bind(':id', $data);
+            $this->db->bind(':id', $id);
 
             if ($this->db->execute())
                 return true;
@@ -121,11 +121,11 @@
                 return false;
         }
 
-        public function update_pass($new_password, $data){
+        public function update_pass($new_password, $id){
 
             $this->db->query('UPDATE users SET password = :password WHERE id = :id');
             $this->db->bind(':password', $new_password);
-            $this->db->bind(':id', $data);
+            $this->db->bind(':id', $id);
 
             if ($this->db->execute())
                 return true;
@@ -133,11 +133,24 @@
                 return false;
         }
 
-        public function update_email($new_email, $data){
+        public function update_email($new_email, $id){
 
             $this->db->query('UPDATE users SET email = :email WHERE id = :id');
             $this->db->bind(':email', $new_email);
-            $this->db->bind(':id', $data);
+            $this->db->bind(':id', $id);
+
+            if ($this->db->execute())
+                return true;
+            else
+                return false;
+        }
+
+        public function update_notifs($id, $status){
+            if ($status == 1)
+                $this->db->query('UPDATE users SET notification = 1 WHERE id = :id');
+            else
+                $this->db->query('UPDATE users SET notification = 0 WHERE id = :id');
+            $this->db->bind(':id', $id);
 
             if ($this->db->execute())
                 return true;

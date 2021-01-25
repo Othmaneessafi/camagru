@@ -246,6 +246,11 @@
                     pop_up('signup_ok', 'Your account is verified succesfully');
                     redirect('users/login');
                 }
+                else
+                {
+                    pop_up('signup_ok', 'Failed to verify your accout', 'alert alert-danger text-center');
+                    redirect('users/login');
+                }
             }
             else
                 die('error');
@@ -350,15 +355,42 @@
             
             if(!empty($_POST['new_password']))
             {
-                $_POST['new_password'] = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-                if($this->userModel->update_pass($_POST['new_password'], $data['id']))
+                if ((strlen($_POST['new_password']) < 6) || (!preg_match('@[A-Z]@', $_POST['new_password'])) || (!preg_match('@[a-z]@', $_POST['new_password'])) || (!preg_match('@[0-9]@', $_POST['new_password'])))
                 {
-                    pop_up('updated', 'Password updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                    pop_up('updated', 'Password not valid ✓', 'pop alert alert-danger w-50 mx-auto text-center');
                     redirect('users/profile');
+                }
+                else
+                {
+                    $_POST['new_password'] = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                    if($this->userModel->update_pass($_POST['new_password'], $data['id']))
+                    {
+                        pop_up('updated', 'Password updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
                 }
             }
             else
                 redirect('users/profile');
+
+            if(!empty($_POST['notifs']))
+            {
+                if($this->userModel->update_notifs($data['id'], 1))
+                {
+                    pop_up('updated', 'notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                    $_SESSION['notification'] = 1;
+                    redirect('users/profile');;
+                }
+            }
+            else
+            {
+                if($this->userModel->update_notifs($data['id'], 0))
+                {
+                    pop_up('updated', 'Notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                    $_SESSION['notification'] = 0;
+                    redirect('users/profile');;
+                }
+            }
 
         }
     }
