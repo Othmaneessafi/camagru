@@ -16,6 +16,15 @@
 
             return $res;
         }
+
+        public function getPostsPage($depart, $postsPerPage)
+        {
+            $this->db->query("SELECT *, posts.id as postId, users.id as userId FROM posts INNER JOIN users ON posts.user_id = users.id ORDER BY posts.create_at DESC LIMIT $depart,$postsPerPage");
+            $res = $this->db->resultSet();
+
+            return $res;
+        }
+
         public function save($data){
             $this->db->query('INSERT INTO posts (user_id, content) VALUES(:user_id, :path)');
     
@@ -28,6 +37,17 @@
                 return false;
             }
         }
+
+        public function count_posts(){
+            $this->db->query('SELECT count(*) FROM posts');
+    
+            $c = $this->db->ftchColumn();
+            if($c)
+                return $c;
+            else
+                return false;
+        }
+        
         public function del($id)
         {
             $this->db->query('DELETE FROM posts WHERE id = :id');

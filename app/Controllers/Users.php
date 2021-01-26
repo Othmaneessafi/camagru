@@ -213,7 +213,7 @@
                                 <br />This is an automatic mail , please do not reply.
                             </p>';
                         $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
-                        $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";    
+                        $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";
                         if (mail($to_email, $subject, $body, $headers))
                             pop_up('signup_ok', 'Reset password verification sent to your email');
                         else

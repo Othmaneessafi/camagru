@@ -79,4 +79,9 @@
             return $this->stmt->rowCount();
         }
 
+        public function ftchColumn(){
+            $this->execute();
+            return $this->stmt->fetchColumn();
+        }
+
      }
