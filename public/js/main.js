@@ -174,8 +174,7 @@ function comment(event)
   setInterval(function(){ window.location.reload(); }, 200);
 }
 
-if (window.location.href != server_name + "/users/login" && window.location.href != server_name + "/users/forgot" &&
-    window.location.href != server_name + "/users/signup" && window.location.href != server_name + "/users/reset" && window.location.href != server_name + "/")
+if (list_toggle != null)
 {
     var i = false;
     list_toggle.addEventListener("click", function(){

@@ -73,12 +73,12 @@ i {
 
 .liste {
 	display: none;
-	position: absolute;
-	right: 10%;
-	top: 15%;
 	background-color: whitesmoke;
-	border: 1px solid black;
-	width: 10rem;
+	border: 1px solid grey;
+	width: 200px;
+	position: absolute;
+	right: 5%;
+	margin-top: 10px;
 	z-index: 100;
 }
 
