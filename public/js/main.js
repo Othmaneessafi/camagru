@@ -174,16 +174,20 @@ function comment(event)
   setInterval(function(){ window.location.reload(); }, 200);
 }
 
-var i = false;
-list_toggle.addEventListener("click", function(){
-    if (i == false)
-    {
-        document.getElementById('liste').style.display = "block";
-        i = true;
-    }
-    else
-    {
-        document.getElementById('liste').style.display = "none";
-        i = false;
-    }
-});
+if (window.location.href != server_name + "/users/login" && window.location.href != server_name + "/users/forgot" &&
+    window.location.href != server_name + "/users/signup" && window.location.href != server_name + "/users/reset" && window.location.href != server_name + "/")
+{
+    var i = false;
+    list_toggle.addEventListener("click", function(){
+        if (i == false)
+        {
+            document.getElementById('liste').style.display = "block";
+            i = true;
+        }
+        else
+        {
+            document.getElementById('liste').style.display = "none";
+            i = false;
+        }
+    });
+}

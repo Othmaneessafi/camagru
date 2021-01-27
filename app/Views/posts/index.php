@@ -85,7 +85,7 @@
     <?php endforeach;
       else : redirect('pages/index');
         endif; ?>
-        <div class="text-center border">
+        <div class="text-center">
             <ul class="pagination  justify-content-center ">
               <?php 
               if(($data['currentPage']-1) > 0)

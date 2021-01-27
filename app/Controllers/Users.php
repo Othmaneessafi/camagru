@@ -67,16 +67,27 @@
                         $to_email = $data['email'];
                         $subject = "Verify you email";
                         $token = $data['token'];
-                        $body = '<p><h1>Welcome to Camagru</h1>,
-                            <br /><br />
-                            <br/>
-                            To verify your account click here 
-                            <a href="'.URL_ROOT.'/users/verification/?token='.$token.'">click here.</a>
-                            </p>
-                            <p>
-                                <br />--------------------------------------------------------
-                                <br />This is an automatic mail , please do not reply.
-                            </p>';
+                        $body = '<div class="email-container" style="background-color: #0C1117; width: 700px; height: 500px;padding: 20px;">
+                        <div class="title" style=\'color: whitesmoke; text-align: center; font-family: billabong;font-size: 200%;\'><h1>Camagru</h1></div>
+                        <div class="welcome"><h2 style=\'color: whitesmoke; text-align: left; font-family: "Gill Sans", sans-serif;\'>Hi '.$data['username'].',</h2></div>
+                        <div class="reset"><h3 style=\'color: whitesmoke; text-align: left; font-family: "Gill Sans", sans-serif;\'>Verify you account</h3></div>
+                        <div class="body"><p style=\'color: whitesmoke; text-align: left; font-family: "Gill Sans", sans-serif;\'>
+                        You\'re receiving this email because you requested an account verification for your CAMAGRU Account.<br/> If you did not request this verification, you can safely ignore this email.<br/>
+                        <br/>
+                    
+                        To verify you account and scomplete your request, please follow the link below:<br/>
+                        <a href="'.URL_ROOT.'/users/verification/?token='.$token.'">click here.</a>
+                        <br/>
+                        <br/>
+                    
+                        If it is not clickable, please copy and paste the URL into your browser\'s address bar.
+                        <br/>
+                        <br/>
+                        <br/>
+                        The CAMAGRU Team.
+                        </p>
+                        </div>
+                        </div>';
                         $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
                         $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";    
                         if (mail($to_email, $subject, $body, $headers))
@@ -202,27 +213,40 @@
                         $to_email = $data['forgotEmail'];
                         $subject = "Reset password";
                         $user = $this->userModel->getUserToken($data['forgotEmail']);
-                        $body = '<p><h1>Reset Password</h1>,
-                            <br /><br />
-                            <br/>
-                            To reset your password click here 
-                            <a href="'.URL_ROOT.'/users/newpassword/?token='.$user->token.'&id='.$user->id.'">click here.</a>
-                            </p>
-                            <p>
-                                <br />--------------------------------------------------------
-                                <br />This is an automatic mail , please do not reply.
-                            </p>';
+                        $body = '<div class="email-container" style="background-color: #0C1117; width: 700px; height: 500px;padding: 20px;">
+                        <div class="title" style=\'color: whitesmoke; text-align: center; font-family: billabong;font-size: 200%;\'><h1>Camagru</h1></div>
+                        <div class="welcome"><h2 style=\'color: whitesmoke; text-align: left; font-family: "Gill Sans", sans-serif;\'>Hi '.$user->username.',</h2></div>
+                        <div class="reset"><h3 style=\'color: whitesmoke; text-align: left; font-family: "Gill Sans", sans-serif;\'>Reset your password</h3></div>
+                        <div class="body"><p style=\'color: whitesmoke; text-align: left; font-family: "Gill Sans", sans-serif;\'>
+                        You\'re receiving this email because you requested a password reset for your CAMAGRU Account.<br/> If you did not request this change, you can safely ignore this email.<br/>
+                        <br/>
+                    
+                        To choose a new password and complete your request, please follow the link below:<br/>
+                        <a href="'.URL_ROOT.'/users/newpassword/?token='.$user->token.'&id='.$user->id.' style=\'color: #8DA2FB;\'"><strong>click here.</strong></a>
+                        <br/>
+                        <br/>
+                    
+                        If it is not clickable, please copy and paste the URL into your browser\'s address bar.
+                        <br/>
+                        <br/>
+                        <br/>
+                        The CAMAGRU Team.
+                        </p>
+                        </div>
+                        </div>';
                         $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
                         $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";
                         if (mail($to_email, $subject, $body, $headers))
+                        {
                             pop_up('signup_ok', 'Reset password verification sent to your email');
+                            redirect('users/login');
+                        }
                         else
                             pop_up('signup_ok', 'Can not send email verificaton, please retry', 'alert alert-danger');
                 }
-                $this->view('users/forgot', $data); 
+                $this->view('users/forgot', $data);
             }
         }
-
         public function createUserSession($user)
         {
             $_SESSION['user_id'] = $user->id;
@@ -269,6 +293,10 @@
                 {
                     $this->view('users/reset', $data);
                 }
+                else {
+                    pop_up('signup_ok', 'Token not found', 'alert alert-danger');
+                    redirect('users/login');
+                }
             }
             else
                 die('error');
@@ -288,6 +316,13 @@
 
                 if (empty($data['newPassword']))
                     $data['err_newPassword'] = 'please enter password !!';
+                else if (strlen($data['password']) < 6)
+                    $data['err_password'] = 'Password must be at least 6 characters';
+                else if (!preg_match('@[A-Z]@', $data['password']))
+                    $data['err_password'] = 'Password must contain an upper case';
+                else if (!preg_match('@[a-z]@', $data['password']))
+                    $data['err_password'] = 'Password must contain a  lower case';
+                else if (!preg_match('@[0-9]@', $data['password']))
                 
                 if (empty($data['err_newPassword']))
                 {
@@ -295,6 +330,10 @@
                     if($this->userModel->update_pass($data['newPassword'], $data['id']))
                     {
                         pop_up('signup_ok', 'Password updated');
+                        redirect('users/login');
+                    }
+                    else {
+                        pop_up('signup_ok', 'Password not updated', 'alert alert-danger');
                         redirect('users/login');
                     }
                 }
@@ -325,6 +364,11 @@
                     $_SESSION['user_username'] = $_POST['new_username'];
                     redirect('users/profile');
                 }
+                else
+                {
+                    pop_up('updated', 'Username not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                    redirect('users/profile');
+                }
             }
             else
                 redirect('users/profile');
@@ -335,6 +379,11 @@
                 {
                     pop_up('updated', 'Fullname updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
                     $_SESSION['user_fullname'] = $_POST['new_fullname'];
+                    redirect('users/profile');
+                }
+                else
+                {
+                    pop_up('updated', 'fullname not updated', 'pop alert alert-danger w-50 mx-auto text-center');
                     redirect('users/profile');
                 }
             }
@@ -368,6 +417,11 @@
                         pop_up('updated', 'Password updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
                         redirect('users/profile');
                     }
+                    else
+                {
+                    pop_up('updated', 'password not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                    redirect('users/profile');
+                }
                 }
             }
             else
@@ -381,6 +435,11 @@
                     $_SESSION['notification'] = 1;
                     redirect('users/profile');;
                 }
+                else
+                {
+                    pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                    redirect('users/profile');
+                }
             }
             else
             {
@@ -389,6 +448,11 @@
                     pop_up('updated', 'Notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
                     $_SESSION['notification'] = 0;
                     redirect('users/profile');;
+                }
+                else
+                {
+                    pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                    redirect('users/profile');
                 }
             }
 

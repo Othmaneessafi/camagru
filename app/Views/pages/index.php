@@ -15,8 +15,15 @@
             <div class="">
               <div class="">
                   <div class="d-flex flex-row mb-2">
-                            <i class = "fa fa-heart-o"  onclick="like(event)" style="margin-top: 9px;margin-left:9px;">  
-                            </i>
+                      <i class = "fa fa-heart"
+                        data-post_id="<?php echo $post->postId; ?>" 
+                        data-user_id="<?php if (isset($_SESSION['user_id'])) echo $_SESSION['user_id']; ?>" 
+                        data-like_nbr="<?php echo $post->like_nbr;?>" 
+                        onclick="like(event)"
+                        id="l_<?php echo $post->postId;?>"
+                        name="li_<?php echo $post->postId;?>"
+                        style="margin-top: 9px;margin-left:9px;">    
+                      </i>
                           <strong><p id="li_nb_<?php echo $post->postId;?>" class="my-1"><?php echo $post->like_nbr;?> </p></strong>
                           <strong><p class="my-1 mx-1">Likes</p></strong>
                       </div>
@@ -57,4 +64,26 @@
             </div>
         </div>
     <?php endforeach;  ?>
+        <div class="text-center">
+            <ul class="pagination  justify-content-center ">
+              <?php 
+              if(($data['currentPage']-1) > 0)
+                  echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/pages?page='.($data['currentPage']-1).'"><</a></li>';
+              else
+                  echo '<li class="active"><a class="page-link"><</a></li>';
+
+              for($i = 1; $i <= $data['totalPages']; $i++){
+                  if($i == $data['currentPage'])
+                      echo '<li class="active"><a class="page-link">'.$i.'</a></li>';
+                  else
+                      echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/pages?page='.$i.'">'.$i.'</a></li>';
+              }
+              if(($data['currentPage']+1) <= $data['totalPages'])
+                  echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/pages?page='.($data['currentPage']+1).'">></a></li>';
+              else
+                  echo '<li class="active""><a class="page-link">></a></li>';
+
+              ?>
+            </ul>
+        </div>
 <?php require_once CAMAGRU_ROOT . '/Views/inc/footer.php'; ?>
