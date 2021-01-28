@@ -80,6 +80,7 @@ i {
 	right: 5%;
 	margin-top: 10px;
 	z-index: 100;
+	transition: 1s;
 }
 
 .liste ul {

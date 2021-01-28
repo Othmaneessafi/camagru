@@ -88,8 +88,12 @@
 
         public function del_post($post_id)
         {
-            if($this->postModel->del($post_id))
+            $post = $this->postModel->getPostById($post_id);
+            if($this->postModel->del($post_id) && $this->postModel->del_comments($post_id) && $this->postModel->del_likes($post_id))
+            {
+                unlink($post->content);
                 redirect('users/profile');
+            }
             else
                 die("error");
         }
@@ -143,7 +147,7 @@
                     'content' => $_POST['content'],
                 ];
                 $sender = $this->userModel->gets_user($data['user_id']);
-                $uid = $this->postModel->getUserByPostId($data['post_id']);
+                $uid = $this->postModel->getPostById($data['post_id']);
                 $dest = $this->userModel->gets_user($uid->user_id);
                 if($this->postModel->addComment($data) && $dest->notification == 1)
                 {

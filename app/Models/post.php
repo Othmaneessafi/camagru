@@ -134,7 +134,7 @@
                     return false;
         }
 
-        public function getUserByPostId($postId){
+        public function getPostById($postId){
             $this->db->query('SELECT * FROM posts WHERE id = :postid');
             $this->db->bind(':postid',$postId);
         
@@ -143,6 +143,28 @@
               return ($result);
             else
               return false;
+        }
+
+        public function del_comments($post_id)
+        {
+            $this->db->query('DELETE FROM comments WHERE post_id = :id');
+            $this->db->bind(':id', $post_id);
+
+            if ($this->db->execute())
+                return true;
+            else
+                return false;
+        }
+
+        public function del_likes($post_id)
+        {
+            $this->db->query('DELETE FROM likes WHERE post_id = :id');
+            $this->db->bind(':id', $post_id);
+
+            if ($this->db->execute())
+                return true;
+            else
+                return false;
         }
 
     }
