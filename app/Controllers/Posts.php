@@ -98,6 +98,16 @@
                 die("error");
         }
 
+        public function delete_comments($commentId)
+        {
+            if($this->postModel->del_cmmt($commentId))
+            {
+                redirect('posts');
+            }
+            else
+                die("error");
+        }
+
         public function like(){
             
             
@@ -114,25 +124,16 @@
                 if($data['c'] == 'fa fa-heart')
                 {
                   
-                  if($this->postModel->deleteLike($data))
-                  {
-    
-                  }
+                  if($this->postModel->deleteLike($data)){}
                   else
-                  {
                     die('error');
-                  }
                 }
                 else if($data['c'] == 'fa fa-heart-o')
                 {
                   
-                  if($this->postModel->addLike($data))
-                  {
-                  }
+                  if($this->postModel->addLike($data)){}
                   else
-                  {
                     die('error');
-                  }
                 }
                    
              }

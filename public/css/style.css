@@ -189,7 +189,13 @@ i {
 	border-top: 0.5px solid Gainsboro ;
 }
 
-
+.delete-comment {
+	width: 1rem;
+	height: 1rem;
+	position: relative;
+	top: -20px;
+	left: -10px;
+}
 /* **************** */
 /* 04 Post Add page */
 /* **************** */
@@ -328,7 +334,7 @@ label {
 	border-radius: 50%;
 	width: 12vw;
 	height: 12vw;
-	object-fit: cover;
+	object-fit: fill;
 
 }
 .update-btn {
@@ -365,7 +371,11 @@ label {
 }
 
 .del-btn {
-	width: 40%;
+	width: 30%;
+}
+
+.set-btn {
+	width: 60%;
 }
 
 .card-img-top {

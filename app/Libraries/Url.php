@@ -8,10 +8,13 @@
         public function __construct()
         {
             $url = $this->getUrl();
-            if (file_exists('../app/Controllers/' . ucwords($url[0]). '.php'))
+            if($url)
             {
-                $this->curControl = ucwords($url[0]);
-                unset($url[0]);
+                if (file_exists('../app/Controllers/' . ucwords($url[0]). '.php'))
+                {
+                    $this->curControl = ucwords($url[0]);
+                    unset($url[0]);
+                }
             }
 
             require_once '../app/Controllers/'. $this->curControl. '.php';

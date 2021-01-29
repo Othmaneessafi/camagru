@@ -159,13 +159,23 @@
         }
 
         public function gets_user($user_id)
-        {
-            
+        {   
             $this->db->query('SELECT * FROM users WHERE id = :id');
             $this->db->bind(':id',$user_id);
             $result = $this->db->singleFetch();
             if($result)
                 return ($result);
+            else
+                return false;
+        }
+
+        public function setPhoto($post_img)
+        {   
+            $this->db->query('UPDATE users SET profile_img = :img WHERE id = :id');
+            $this->db->bind(':img',$post_img);
+            $this->db->bind(':id',$_SESSION['user_id']);
+            if ($this->db->execute())
+                return true;
             else
                 return false;
         } 
