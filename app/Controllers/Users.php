@@ -33,6 +33,8 @@
                     $data['err_fullname'] = 'please enter fullname !!';
                 if (empty($data['email']))
                     $data['err_email'] = 'please enter email !!';
+                else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL))
+                    $data['err_email'] = "Invalid email format";
                 else
                 {
                     if($this->userModel->findUsrByEmail($data['email']))
@@ -93,7 +95,7 @@
                         if (mail($to_email, $subject, $body, $headers))
                                 pop_up('signup_ok', 'You are now part of our community, Verify your email to login');
                             else
-                                pop_up('signup_ok', 'Can not send email verificaton, please retry');
+                                pop_up('signup_ok', 'Can not send email verificaton, please retry', 'alert alert-danger');
                             redirect('users/login');   
                     }
                     else
@@ -356,9 +358,10 @@
             $data = [
                 'id' => $_SESSION['user_id'],
             ];
+
             if(!empty($_POST['new_username']))
             {
-                if($this->userModel->update_username($_POST['new_username'], $data['id']))
+                if(!($this->userModel->findUsrByUsername($_POST['new_username'])) && $this->userModel->update_username($_POST['new_username'], $data['id']))
                 {
                     pop_up('updated', 'Username updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
                     $_SESSION['user_username'] = $_POST['new_username'];
@@ -370,10 +373,7 @@
                     redirect('users/profile');
                 }
             }
-            else
-                redirect('users/profile');
-
-            if(!empty($_POST['new_fullname']))
+            else if(!empty($_POST['new_fullname']))
             {
                 if($this->userModel->update_fullname($_POST['new_fullname'], $data['id']))
                 {
@@ -387,22 +387,29 @@
                     redirect('users/profile');
                 }
             }
-            else
-                redirect('users/profile');
-            
-            if(!empty($_POST['new_email']))
+            else if(!empty($_POST['new_email']))
             {
-                if($this->userModel->update_email($_POST['new_email'], $data['id']))
+                if (filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL) && !$this->userModel->findUsrByEmail($_POST['new_email']))
                 {
-                    pop_up('updated', 'You need to verify the new email ✓', 'pop alert alert-success w-50 mx-auto text-center');
-                    $_SESSION['user_fullname'] = $_POST['new_fullname'];
+                    if($this->userModel->update_email($_POST['new_email'], $data['id']))
+                    {
+                        pop_up('updated', 'Email updated', 'pop alert alert-success w-50 mx-auto text-center');
+                        $_SESSION['user_email'] = $_POST['new_email'];
+                        redirect('users/profile');
+                    }
+                    else
+                    {
+                        pop_up('updated', 'Email not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
+                }
+                else
+                {
+                    pop_up('updated', 'Email not updated', 'pop alert alert-danger w-50 mx-auto text-center');
                     redirect('users/profile');
                 }
             }
-            else
-                redirect('users/profile');
-            
-            if(!empty($_POST['new_password']))
+            else if(!empty($_POST['new_password']))
             {
                 if ((strlen($_POST['new_password']) < 6) || (!preg_match('@[A-Z]@', $_POST['new_password'])) || (!preg_match('@[a-z]@', $_POST['new_password'])) || (!preg_match('@[0-9]@', $_POST['new_password'])))
                 {
@@ -418,44 +425,45 @@
                         redirect('users/profile');
                     }
                     else
-                {
-                    pop_up('updated', 'password not updated', 'pop alert alert-danger w-50 mx-auto text-center');
-                    redirect('users/profile');
+                    {
+                        pop_up('updated', 'password not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
                 }
+            }
+            else if (($_SESSION['notification'] == 1 && empty($_POST['notifs'])) || ($_SESSION['notification'] == 0 && !empty($_POST['notifs'])))
+            {
+                if(!empty($_POST['notifs']))
+                {
+                    if($this->userModel->update_notifs($data['id'], 1))
+                    {
+                        pop_up('updated', 'notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                        $_SESSION['notification'] = 1;
+                        redirect('users/profile');;
+                    }
+                    else
+                    {
+                        pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
+                }
+                else if (empty($_POST['notifs']))
+                {
+                    if($this->userModel->update_notifs($data['id'], 0))
+                    {
+                        pop_up('updated', 'Notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                        $_SESSION['notification'] = 0;
+                        redirect('users/profile');;
+                    }
+                    else
+                    {
+                        pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
                 }
             }
             else
                 redirect('users/profile');
-
-            if(!empty($_POST['notifs']))
-            {
-                if($this->userModel->update_notifs($data['id'], 1))
-                {
-                    pop_up('updated', 'notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
-                    $_SESSION['notification'] = 1;
-                    redirect('users/profile');;
-                }
-                else
-                {
-                    pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
-                    redirect('users/profile');
-                }
-            }
-            else
-            {
-                if($this->userModel->update_notifs($data['id'], 0))
-                {
-                    pop_up('updated', 'Notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
-                    $_SESSION['notification'] = 0;
-                    redirect('users/profile');;
-                }
-                else
-                {
-                    pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
-                    redirect('users/profile');
-                }
-            }
-
         }
 
         public function set_pdp($post_id)
