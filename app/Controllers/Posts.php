@@ -74,20 +74,14 @@
                 'user_id'  => $_SESSION['user_id'],
                 'path' => $file,
             ];
-            if($this->postModel->save($data)){
-                
-            }else
+            if($this->postModel->save($data)){}
+            else
                 return false;	  
             }
         }
 
-        public function edit_post($id)
-        {
-            die($id);
-        }
-
         public function del_post($post_id)
-        {
+        {  
             $post = $this->postModel->getPostById($post_id);
             if($this->postModel->del($post_id) && $this->postModel->del_comments($post_id) && $this->postModel->del_likes($post_id))
             {
