@@ -95,7 +95,7 @@
                         if (mail($to_email, $subject, $body, $headers))
                                 pop_up('signup_ok', 'You are now part of our community, Verify your email to login');
                             else
-                                pop_up('signup_ok', 'Can not send email verificaton, please retry', 'alert alert-danger');
+                                pop_up('signup_ok', 'Can not send email verification, please retry', 'alert alert-danger');
                             redirect('users/login');   
                     }
                     else

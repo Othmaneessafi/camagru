@@ -59,7 +59,7 @@
                                           <div class="media-body">
                                             <strong class="text-dark mx-2"><?php echo $comment->username;?></strong>
                                               <small><p class="mx-4 text-muted w-75"><?php echo htmlspecialchars($comment->content);?></p></small>
-                                              <a href="<?php echo URL_ROOT ?>/posts/delete_comments/<?php echo $comment->commentId; ?>" class="d-flex justify-content-end"><img class="delete-comment" src="../public/img/delete.png" alt="deleteComment"></a>
+                                              <?php if ($comment->userId == $_SESSION['user_id']): ?><a href="<?php echo URL_ROOT ?>/posts/delete_comments/<?php echo $comment->commentId; ?>" class="d-flex justify-content-end"><img class="delete-comment" src="../public/img/delete.png" alt="deleteComment"></a><?php endif; ?>
                                           </div>
                                       </li>
                                   </ul>

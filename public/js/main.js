@@ -77,12 +77,14 @@ if (window.location.href == server_name + "/posts/add")
             var img = new Image;
             img.onload = function () {
                 context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                context.drawImage(elem, 10, 10, 140, 140);
             }
             if(file && isImage(file))
-            img.src = URL.createObjectURL(file);
-            if (uploadImg.files.length != 0)
-            document.getElementById('save').disabled = false;
-        });
+                img.src = URL.createObjectURL(file);
+                if (uploadImg.files.length != 0){
+                    document.getElementById('save').disabled = false;
+                }
+            });
     }
 
 }

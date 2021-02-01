@@ -80,13 +80,18 @@
             }
         }
 
-        public function del_post($post_id)
+        public function del_post($post_id, $p)
         {  
             $post = $this->postModel->getPostById($post_id);
             if($this->postModel->del($post_id) && $this->postModel->del_comments($post_id) && $this->postModel->del_likes($post_id))
             {
                 unlink($post->content);
-                redirect('users/profile');
+                if ($p == 1)
+                    redirect('users/profile');
+                else if ($p == 2)
+                    redirect('posts/add');
+                else
+                    redirect('users/profile');
             }
             else
                 die("error");

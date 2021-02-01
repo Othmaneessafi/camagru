@@ -106,12 +106,7 @@
 
         public function getcomments()
         {
-            $this->db->query('SELECT *,
-                            comments.id as commentId,
-                            users.id as userId
-                            FROM `comments`
-                            INNER JOIN users
-                            ON comments.user_id = users.id');
+            $this->db->query('SELECT *, comments.id as commentId, users.id as userId FROM `comments` INNER JOIN users ON comments.user_id = users.id');
 
             $result = $this->db->resultSet();
             if($result)
