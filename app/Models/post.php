@@ -48,15 +48,27 @@
                 return false;
         }
         
-        public function del($id)
+        public function del($id, $user_id)
         {
-            $this->db->query('DELETE FROM posts WHERE id = :id');
+            $this->db->query('SELECT * FROM posts WHERE id = :id AND user_id = :userid');
             $this->db->bind(':id', $id);
+            $this->db->bind(':userid', $user_id);
 
-            if ($this->db->execute())
-                return true;
+            if ($this->db->rowCount() > 0)
+            {
+                $this->db->query('DELETE FROM posts WHERE id = :id AND user_id = :userid');
+                $this->db->bind(':id', $id);
+                $this->db->bind(':userid', $user_id);
+
+                if ($this->db->execute())
+                    return true;
+                else
+                    return false;
+            }
             else
                 return false;
+
+            
         }
 
         public function getlikes(){
@@ -140,10 +152,11 @@
               return false;
         }
 
-        public function del_comments($post_id)
+        public function del_comments($post_id ,$user_id)
         {
-            $this->db->query('DELETE FROM comments WHERE post_id = :id');
+            $this->db->query('DELETE FROM comments WHERE post_id = :id AND user_id = :userid');
             $this->db->bind(':id', $post_id);
+            $this->db->bind(':userid', $user_id);
 
             if ($this->db->execute())
                 return true;
@@ -163,10 +176,11 @@
                 return false;
         }
 
-        public function del_likes($post_id)
+        public function del_likes($post_id, $user_id)
         {
-            $this->db->query('DELETE FROM likes WHERE post_id = :id');
+            $this->db->query('DELETE FROM likes WHERE post_id = :id AND user_id = :userid');
             $this->db->bind(':id', $post_id);
+            $this->db->bind(':userid', $user_id);
 
             if ($this->db->execute())
                 return true;

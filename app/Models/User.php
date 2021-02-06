@@ -37,22 +37,26 @@
                 return false;
         }
 
-        public function verify($token)
+        public function verify($token, $type)
         {
             $this->db->query('SELECT * FROM users WHERE token = :token');
             $this->db->bind(':token', $token);
             
             $row = $this->db->singleFetch();
 
-
         if ($this->db->rowCount() > 0)
         {
-            $this->db->query('UPDATE users SET verified = 1 WHERE token = :token');
-            $this->db->bind(':token', $token);
-            if ($this->db->execute())
-                return true;
+            if ($type == 1)
+            {
+                $this->db->query('UPDATE users SET verified = 1 WHERE token = :token');
+                $this->db->bind(':token', $token);
+                if ($this->db->execute())
+                    return true;
+                else
+                    return false;
+            }
             else
-               return false;
+                return true;
         }
         else
             return false;
@@ -62,8 +66,6 @@
 
             $this->db->query('SELECT * FROM users WHERE email = :email');
             $this->db->bind(':email', $email);
-
-            $row = $this->db->singleFetch();
 
             if ($this->db->rowCount() > 0)
                 return true;
@@ -75,8 +77,6 @@
 
             $this->db->query('SELECT * FROM users WHERE username = :username');
             $this->db->bind(':username', $username);
-
-            $row = $this->db->singleFetch();
 
             if ($this->db->rowCount() > 0)
                 return true;
@@ -169,14 +169,21 @@
                 return false;
         }
 
-        public function setPhoto($post_img)
+        public function setPhoto($post_img, $user_id)
         {   
-            $this->db->query('UPDATE users SET profile_img = :img WHERE id = :id');
+            $this->db->query('SELECT * FROM posts WHERE content = :img AND user_id = :id');
             $this->db->bind(':img',$post_img);
-            $this->db->bind(':id',$_SESSION['user_id']);
-            if ($this->db->execute())
-                return true;
-            else
-                return false;
+            $this->db->bind(':id',$user_id);
+  
+            if ($this->db->rowCount() > 0)
+            {
+                $this->db->query('UPDATE users SET profile_img = :img WHERE id = :id');
+                $this->db->bind(':img',$post_img);
+                $this->db->bind(':id',$user_id);
+                if ($this->db->execute())
+                    return true;
+                else
+                    return false;
+            }
         } 
     }

@@ -10,8 +10,8 @@
     <div class="infos h-auto">
         <img src="<?php echo $_SESSION['user_img'] ?>" class="profile-pic card-img-top shadow" alt="profile">
         <div class="card-body">
-            <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
-            <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2"><?php echo $_SESSION['user_username'] ?></h5></span><br>
+            <span class="p-name vcard-fullname d-block overflow-hidden"><h3 class="profile-fullname"><strong><?php echo htmlspecialchars(ucfirst($_SESSION['user_fullname'])); ?></h3></strong></span>
+            <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2"><?php echo htmlspecialchars($_SESSION['user_username']); ?></h5></span><br>
             <span class="row p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email"><i class="fa fa-envelope"></i><?php echo '  '.$_SESSION['user_email'] ?></small></strong></span>
         </div>
         <input class="btn btn-outline-secondary shadow" id="edit_profile" onclick="editShow()" value="Edit profile">

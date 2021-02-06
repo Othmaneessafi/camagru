@@ -6,8 +6,8 @@
     <?php foreach($data['posts'] as $post) : ?>
         <div class="post-container  mb-3 shadow m-auto">
             <div class="d-flex justify-content-left h-auto mb-3 mx-2">
-                <img class="post-user  shadow my-auto" src="<?php echo $post->profile_img ?>" alt="profile">
-                <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.5rem;"><?php echo $post->username; ?></h4>
+                <img class="post-user  shadow my-auto" src="<?php echo $_SESSION['user_img'] ?>" alt="profile">
+                <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.5rem;"><?php echo htmlspecialchars($post->username); ?></h4>
             </div>
                 <img class="post-img" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
             <div class="">
@@ -57,7 +57,7 @@
                                   <ul class="media-list">
                                       <li class="media ">                    
                                           <div class="media-body">
-                                            <strong class="text-dark mx-2"><?php echo $comment->username;?></strong>
+                                            <strong class="text-dark mx-2"><?php echo htmlspecialchars($comment->username); ?></strong>
                                               <small><p class="mx-4 text-muted w-75"><?php echo htmlspecialchars($comment->content);?></p></small>
                                               <?php if ($comment->userId == $_SESSION['user_id']): ?><a href="<?php echo URL_ROOT ?>/posts/delete_comments/<?php echo $comment->commentId; ?>" class="d-flex justify-content-end"><img class="delete-comment" src="../public/img/delete.png" alt="deleteComment"></a><?php endif; ?>
                                           </div>
@@ -76,8 +76,8 @@
                             <input type="text" class="comment-input form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="comment_<?php echo $post->postId;?>" placeholder="write a comment...">
                             <div class="input-group-append">
                               <button onclick="comment(event)"
-                            data-c-user_id="<?php echo $_SESSION['user_id'];?>"
-                            data-c-post_id="<?php echo $post->postId;?>"class="post-btn btn btn-outline-primary" type="button">Post</button>
+                              data-c-user_id="<?php echo $_SESSION['user_id'];?>"
+                              data-c-post_id="<?php echo $post->postId;?>"class="post-btn btn btn-outline-primary" type="button">Post</button>
                             </div>
                           </div>
                       </div>

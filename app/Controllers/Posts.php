@@ -83,7 +83,7 @@
         public function del_post($post_id, $p)
         {  
             $post = $this->postModel->getPostById($post_id);
-            if($this->postModel->del($post_id) && $this->postModel->del_comments($post_id) && $this->postModel->del_likes($post_id))
+            if($this->postModel->del($post_id, $_SESSION['user_id']) && $this->postModel->del_comments($post_id, $_SESSION['user_id']) && $this->postModel->del_likes($post_id, $_SESSION['user_id']))
             {
                 unlink($post->content);
                 if ($p == 1)
@@ -99,7 +99,7 @@
 
         public function delete_comments($commentId)
         {
-            if($this->postModel->del_cmmt($commentId))
+            if($this->postModel->del_cmmt($commentId, $_SESSION['user_id']))
             {
                 redirect('posts');
             }
@@ -123,7 +123,7 @@
                 if($data['c'] == 'fa fa-heart')
                 {
                   
-                  if($this->postModel->deleteLike($data)){}
+                  if($this->postModel->deleteLike($data, $_SESSION['user_id'])){}
                   else
                     die('error');
                 }

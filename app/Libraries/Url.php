@@ -27,12 +27,15 @@
                     $this->curMethod = $url[1];
                     unset($url[1]);
                 }
+                else
+                    die("<h1>page not found !!!<h1>");
             }
 
             $this->params = $url ? array_values($url) : [];
 
             call_user_func_array([$this->curControl, $this->curMethod], $this->params);
         }
+        
         public function getUrl() {
             if (isset($_GET['url']))
             {

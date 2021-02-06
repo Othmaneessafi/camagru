@@ -6,7 +6,7 @@
         {
             $this->userModel = $this->model('User');
             $this->postModel = $this->model('Post');
-
+            $_SESSION['user_img'] = (file_exists($_SESSION['user_img'])) ? $_SESSION['user_img'] : 'https://www.washingtonfirechiefs.com/Portals/20/EasyDNNnews/3584/img-blank-profile-picture-973460_1280.png';
         }
 
         public function signup() {
@@ -15,12 +15,17 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $token = openssl_random_pseudo_bytes(16);
                 $token = bin2hex($token);
+                $fullname = (isset($_POST['fullname'])) ? trim($_POST['fullname']) : '';
+                $email = (isset($_POST['email'])) ? trim($_POST['email']) : '';
+                $username = (isset($_POST['username'])) ? trim($_POST['username']) : '';
+                $password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
+                $confirmPwd = (isset($_POST['confirmPwd'])) ? trim($_POST['confirmPwd']) : '';
                 $data = [
-                    'fullname' => trim($_POST['fullname']),
-                    'email' => trim($_POST['email']),
-                    'username' => trim($_POST['username']),
-                    'password' => trim($_POST['password']),
-                    'confirm_pwd' => trim($_POST['confirmPwd']),
+                    'fullname' =>  $fullname,
+                    'email' => $email,
+                    'username' => $username,
+                    'password' => $password,
+                    'confirm_pwd' => $confirmPwd,
                     'token' => $token,
                     'err_fullname' => '',
                     'err_email' => '',
@@ -128,10 +133,11 @@
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+                $username = (isset($_POST['username'])) ? trim($_POST['username']) : '';
+                $password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
                 $data = [
-                    'username' => trim($_POST['username']),
-                    'password' => trim($_POST['password']),
+                    'username' => $username,
+                    'password' => $password,
                     'err_username' => '',
                     'err_password' => '',
                 ];
@@ -184,6 +190,8 @@
             unset($_SESSION['user_email']);
             unset($_SESSION['user_username']);
             unset($_SESSION['user_fullname']);
+            unset($_SESSION['user_img']);
+            unset($_SESSION['notification']);
 
             session_destroy();
             redirect('users/login');
@@ -198,7 +206,7 @@
         {
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_EMAIL);
 
                 $data = [
                     'forgotEmail' => trim($_POST['forgotEmail']),
@@ -224,7 +232,7 @@
                         <br/>
                     
                         To choose a new password and complete your request, please follow the link below:<br/>
-                        <a href="'.URL_ROOT.'/users/newpassword/?token='.$user->token.'&id='.$user->id.' style=\'color: #8DA2FB;\'"><strong>click here.</strong></a>
+                        <a href="'.URL_ROOT.'/users/newpassword/?token='.$user->token.'&id='.$user->id.'" style=\'color: #8DA2FB;\'"><strong>click here.</strong></a>
                         <br/>
                         <br/>
                     
@@ -267,16 +275,21 @@
             {
                 $token = $_GET['token'];
                 
-                if ($this->userModel->verify($token))
+                if (!isLogged())
                 {
-                    pop_up('signup_ok', 'Your account is verified succesfully');
-                    redirect('users/login');
+                    if ($this->userModel->verify($token, 1))
+                    {
+                        pop_up('signup_ok', 'Your account is verified succesfully');
+                        redirect('users/login');
+                    }
+                    else
+                    {
+                        pop_up('signup_ok', 'Failed to verify your accout', 'alert alert-danger text-center');
+                        redirect('users/login');
+                    }
                 }
                 else
-                {
-                    pop_up('signup_ok', 'Failed to verify your accout', 'alert alert-danger text-center');
-                    redirect('users/login');
-                }
+                    redirect('posts');
             }
             else
                 die('error');
@@ -291,10 +304,8 @@
                     'id' => $_GET['id']
                 ];
                 
-                if ($this->userModel->verify($data['token']))
-                {
+                if ($this->userModel->verify($data['token'], 0))
                     $this->view('users/reset', $data);
-                }
                 else {
                     pop_up('signup_ok', 'Token not found', 'alert alert-danger');
                     redirect('users/login');
@@ -325,7 +336,7 @@
                 else if (!preg_match('@[a-z]@', $data['password']))
                     $data['err_password'] = 'Password must contain a  lower case';
                 else if (!preg_match('@[0-9]@', $data['password']))
-                
+                    $data['err_password'] = 'Password must contain a  number';
                 if (empty($data['err_newPassword']))
                 {
                     $data['newPassword'] = password_hash($data['newPassword'], PASSWORD_DEFAULT);
@@ -339,7 +350,6 @@
                         redirect('users/login');
                     }
                 }
-                $this->view('users/reset', $data); 
             }
         }
         
@@ -469,7 +479,7 @@
         public function set_pdp($post_id)
         {
             $post = $this->postModel->getPostById($post_id);
-            if ($this->userModel->setPhoto($post->content))
+            if ($this->userModel->setPhoto($post->content, $_SESSION['user_id']))
             {
                 $user = $this->userModel->gets_user($_SESSION['user_id']);
                 $_SESSION['user_img'] = $user->profile_img;
@@ -478,5 +488,7 @@
             else
                 die('error');
         }
+
+
         
     }

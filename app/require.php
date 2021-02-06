@@ -5,3 +5,4 @@
     require_once 'Config/config.php';
     require_once '../config/setup.php';
     require_once 'helpers/session_helper.php';
+    chmod("../public/img", 0777);

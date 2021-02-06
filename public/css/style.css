@@ -10,6 +10,7 @@
 
 body {
 	background-color: whitesmoke;
+	padding-bottom: 50px;
 }
 
 i {
@@ -17,6 +18,13 @@ i {
 	height: auto;
 }
 
+footer {
+	position: fixed;
+	margin-top: 50px;
+	bottom: 0;
+ 	width:45%;
+  	height:5vh;
+}
 /* ********* */
 /* 02 Navbar */
 /* ********* */
@@ -118,14 +126,13 @@ i {
 		width: 20vw;
 		height: 20vw;
 		object-fit: cover;
-	
+	}
+
+	footer {
+		width: 80%;
 	}
 }
 
-@media screen and (min-width:1200px)
-{
-	
-}
 /* ************* */
 /* 03 Index page */
 /* ************* */
@@ -240,8 +247,35 @@ i {
 #filters
 {
 	position: absolute;
-	top: 4.5%;
-	left: 2.5%;
+	top: 15px;
+	left: 1%;
+	width: 4.6vw;
+	height: 4.6vw;
+}
+
+#filters1
+{
+	position: absolute;
+	top: 15px;
+	left: 37%;
+	width: 4.6vw;
+	height: 4.6vw;
+}
+
+#filters2
+{
+	position: absolute;
+	top: 55%;
+	left: 1%;
+	width: 4.6vw;
+	height: 4.6vw;
+}
+
+#filters3
+{
+	position: absolute;
+	top: 55%;
+	left: 37%;
 	width: 4.6vw;
 	height: 4.6vw;
 }
@@ -255,13 +289,54 @@ i {
 	width: 5%;
 }
 
-@media screen and (max-width:800px)
+.add-img {
+	height: 15vh;
+	width:15vh; 
+	object-fit:fill;
+}
+
+@media screen and (max-width:990px)
 {
 	#thum {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 	}
+
+	#add-gallery{
+		width: 30%;
+	}
+
+	.add-img {
+		height: 100%;
+		width:auto; 
+		object-fit:fill;
+	}
+
+	.btn-delete {
+		margin: 5px;
+	}
+
+	#filters2
+	{
+		top: 35%;
+		left: 6%;
+	}
+
+	#filters3
+	{
+		top: 35%;
+		left: 38%;
+
+	}
+	
+	.buttons {
+		width:40%;
+	}
+}
+
+@media screen and (max-width:800px)
+{
 	.filter_img {
 		width: 2vh;
 		height: 2vh;
@@ -271,11 +346,49 @@ i {
 	}
 	#filters
 	{
-		position: absolute;
 		top: 6%;
 		left: 6%;
-		width: 4.6vw;
-		height: 4.6vw;
+	}
+	#filters1
+	{
+		top: 6%;
+		left: 40%;
+	}
+	#filters2
+	{
+		top: 35%;
+		left: 4%;
+	}
+
+	#filters3
+	{
+		top: 35%;
+		left: 40%;
+	}
+}
+
+@media screen and (max-width:500px)
+{
+	
+	#filters2
+	{
+		top: 25%;
+		left: 6%;
+	}
+
+	#filters3
+	{
+		position: absolute;
+		top: 25%;
+		left: 38%;
+
+	}
+	.filter_img {
+		width: 2vh;
+		height: 2vh;
+		position: relative;
+		left: -10px;
+		top: 1px;
 	}
 }
 
@@ -404,11 +517,6 @@ label {
 
 @media screen and (max-width:800px)
 {
-	#thum {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-	}
 	.filter_img {
 		width: 2vh;
 		height: 2vh;

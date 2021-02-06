@@ -7,7 +7,7 @@
         <div class="post-container  mb-3 shadow m-auto">
             <div class="d-flex justify-content-left h-auto mb-3 mx-2">
                 <img class="post-user  shadow my-auto" src="<?php echo $post->profile_img ?>" alt="profile">
-                <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.5rem;"><?php echo $post->username; ?></h4>
+                <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.5rem;"><?php echo htmlspecialchars($_SESSION['user_username']); ?></h4>
             </div>
            
                 <img class="post-img " src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
@@ -15,7 +15,7 @@
             <div class="">
               <div class="">
                   <div class="d-flex flex-row mb-2">
-                      <i class = "fa fa-heart"
+                      <i class = "fa fa-heart-o"
                         data-post_id="<?php echo $post->postId; ?>" 
                         data-user_id="<?php if (isset($_SESSION['user_id'])) echo $_SESSION['user_id']; ?>" 
                         data-like_nbr="<?php echo $post->like_nbr;?>" 
@@ -40,7 +40,7 @@
                                   <ul class="media-list">
                                       <li class="media ">                    
                                           <div class="media-body">
-                                              <strong class="text-dark mx-2"><?php echo $comment->username;?></strong>
+                                              <strong class="text-dark mx-2"><?php echo htmlspecialchars($comment->username); ?></strong>
                                               <small><p class="mx-4 text-muted"><?php echo htmlspecialchars($comment->content);?></p></small>
                                           </div>
                                       </li>
@@ -57,7 +57,10 @@
                           <div class="input-group">
                             <input type="text" class="comment-input form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="comment_<?php echo $post->postId;?>" placeholder="write a comment...">
                             <div class="input-group-append">
-                              <button onclick="comment(event)" class="post-btn btn btn-outline-primary" type="button">Post</button>
+                              <button onclick="comment(event)" 
+                                data-c-user_id="<?php if (!empty($_SESSION['user_id'])) echo $_SESSION['user_id'];?>"
+                                data-c-post_id="<?php echo $post->postId;?>"class="post-btn btn btn-outline-primary"
+                                class="post-btn btn btn-outline-primary" type="button">Post</button>
                             </div>
                           </div>
                       </div>
