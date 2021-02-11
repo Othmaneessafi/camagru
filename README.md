@@ -1,4 +1,4 @@
-# camagru
+# Camagru
 
 A little Instagram-like website where users can take pics and share them with the social network of the website.
 
