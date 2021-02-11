@@ -19,7 +19,6 @@ A little Instagram-like website where users can take pics and share them with th
 # Run Camagru
 
   You have to start LAMP, MAMP, WAMP or other apache server. Then you can clone this repo in your apache diretory like htdocs for MAMP.
-  Then to install the DB, enter to config/ folder and run ```php setup.php```
 
 # Screenshots
 
